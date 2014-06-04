@@ -1,0 +1,13 @@
+Metadata-Version: 1.1
+Name: knitter
+Version: 0.1.0
+Summary: Python Web Automation Test Framework with Selenium WebDriver
+Home-page: https://github.com/hww712/Knitter
+Author: Hongwei Wang
+Author-email: hww712@gmail.com
+License: MIT License
+Description: This is a web testing framework based on Selenium WebDriver. The object is to develop web testing automation project with good implementation, maintainance and extendability.
+Platform: linux
+Platform: windows
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: Software Development :: Quality Assurance

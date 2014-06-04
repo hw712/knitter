@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
 
 
 setup(
@@ -25,7 +22,7 @@ setup(
     
     packages                = ['knitter'],
     
-    requires                = ['selenium', 'xlrd', 'xlwt'],
+    install_requires        = ['selenium', 'xlrd', 'xlwt'],
 )
 
 
