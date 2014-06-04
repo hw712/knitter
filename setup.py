@@ -8,5 +8,5 @@ setup(name='knitter',
       author='Hongwei Wang',
       author_email='hww712@gmail.com',
       url='https://github.com/hww712/PyWebAuto',
-      packages=['pywebauto'],
+      packages=['knitter'],
       )
