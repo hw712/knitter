@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-setup(name='pywebauto',
+setup(name='knitter',
       version='0.1',
       description='Python Web Automation Test Framework with Selenium WebDriver',
       author='Hongwei Wang',
