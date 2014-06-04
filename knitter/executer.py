@@ -1,58 +1,67 @@
-﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import types, importlib, time, inspect, os
-
-import selenium.webdriver as webdriver
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
-import log, env, function
+import types, importlib, time, inspect, os
+import log, environment, common
 
 
 
 def launch_browser():
-    env.PROJECT_PATH = inspect.stack()[2][1].rsplit("\\", 1)[0]
+    environment.PROJECT_PATH = inspect.stack()[2][1].rsplit("\\", 1)[0]
     
     
-    if env.RUNNING_BROWSER == "Firefox":
+    if environment.RUNNING_BROWSER == "Firefox":
         os.popen("TASKKILL /F /IM firefox.exe")
         
-        binary_path = function.getconf("BinaryPath_Firefox")
+        binary_path = common.getconf("BinaryPath_Firefox")
         
         if binary_path == "":
-            env.BROWSER = webdriver.Firefox()
+            environment.BROWSER = webdriver.Firefox()
         else:
             fb = FirefoxBinary(firefox_path=binary_path)
-            env.BROWSER = webdriver.Firefox(firefox_binary=fb)
+            environment.BROWSER = webdriver.Firefox(firefox_binary=fb)
     
     
-    elif env.RUNNING_BROWSER == "Chrome":
+    elif environment.RUNNING_BROWSER == "Chrome":
         os.popen("TASKKILL /F /IM chrome.exe")
         os.popen("TASKKILL /F /IM chromedriver.exe")
         
-        chromedriver = function.getconf("DriverPath_Chrome")
-        os.environ["webdriver.chrome.driver"] = chromedriver
-        env.BROWSER = webdriver.Chrome(chromedriver)
+        binary_path  = common.getconf("BinaryPath_Chrome")
+        chromedriver = common.getconf("DriverPath_Chrome")
+        
+        if binary_path == "":
+            os.environ["webdriver.chrome.driver"] = chromedriver
+            environment.BROWSER = webdriver.Chrome(executable_path=chromedriver)
+        else:
+            opts = Options()
+            opts.binary_location = binary_path
+            
+            os.environ["webdriver.chrome.driver"] = chromedriver
+            environment.BROWSER = webdriver.Chrome(executable_path=chromedriver, chrome_options=opts)
     
     
-    elif env.RUNNING_BROWSER == "IE":
-        os.popen("TASKKILL /F /IM iexplorer.exe")
+    elif environment.RUNNING_BROWSER == "IE":
+        os.popen("TASKKILL /F /IM iexplore.exe")
         os.popen("TASKKILL /F /IM IEDriverServer.exe")
         
-        iedriver = function.getconf("DriverPath_IE")
+        
+        iedriver = common.getconf("DriverPath_IE")
         os.environ["webdriver.ie.driver"] = iedriver
-        env.BROWSER = webdriver.Ie(iedriver)
+        environment.BROWSER = webdriver.Ie(iedriver)
     
     
     else:
         return False
     
     
-    env.TEST_URL = function.getconf("Testing_URL")
+    environment.TEST_URL = common.getconf("Testing_URL")
     
     
-    env.BROWSER.get(env.TEST_URL)
-    env.BROWSER.maximize_window()
+    environment.BROWSER.get(environment.TEST_URL)
+    environment.BROWSER.maximize_window()
     
     time.sleep(3)
     
@@ -60,9 +69,9 @@ def launch_browser():
 
 
 
-def testcase_tail_cleaning():
+def testcase_windingup():
     time.sleep(3)
-    env.BROWSER.quit()
+    environment.BROWSER.quit()
     
     os.popen("TASKKILL /F /IM IEDriverServer.exe")
     os.popen("TASKKILL /F /IM chromedriver.exe")
@@ -73,20 +82,20 @@ def testcase_tail_cleaning():
 def run_module(module_name):
     testmodule = importlib.import_module(module_name)
     
-    env.MODULE_NAME = module_name.split('.')[-1]
+    environment.MODULE_NAME = module_name.split('.')[-1]
     testcases = [testmodule.__dict__.get(a).__name__ for a in dir(testmodule)
            if isinstance(testmodule.__dict__.get(a), types.FunctionType)]
     
-    env.PROJECT_PATH = inspect.stack()[1][1].rsplit("\\", 1)[0]
-    env.TESTING_BROWSERS = function.getconf("Testing_Browsers")
+    environment.PROJECT_PATH = inspect.stack()[1][1].rsplit("\\", 1)[0]
+    environment.TESTING_BROWSERS = common.getconf("Testing_Browsers")
     
     
     for testcase in testcases:
         if testcase == "before_each_testcase" or testcase == "after_each_testcase" or testcase == "before_launch_browser":
             continue
         
-        for browser in env.TESTING_BROWSERS.split('|'):
-            env.RUNNING_BROWSER = browser
+        for browser in environment.TESTING_BROWSERS.split('|'):
+            environment.RUNNING_BROWSER = browser
             
             
             ##### Launch Browser
@@ -115,7 +124,7 @@ def run_module(module_name):
             
             
             ##### Clear Environment. Quite Browser, Kill Driver Processes.
-            testcase_tail_cleaning()
+            testcase_windingup()
 
 
 
@@ -124,20 +133,20 @@ def run_module(module_name):
 def run_case(module_name, case_name):
     testmodule = importlib.import_module(module_name)
     
-    env.MODULE_NAME = module_name.split('.')[-1]
+    environment.MODULE_NAME = module_name.split('.')[-1]
     testcases = [testmodule.__dict__.get(a).__name__ for a in dir(testmodule)
            if isinstance(testmodule.__dict__.get(a), types.FunctionType)]
     
-    env.PROJECT_PATH     = inspect.stack()[1][1].rsplit("\\", 1)[0]
-    env.TESTING_BROWSERS = function.getconf("Testing_Browsers")
+    environment.PROJECT_PATH     = inspect.stack()[1][1].rsplit("\\", 1)[0]
+    environment.TESTING_BROWSERS = common.getconf("Testing_Browsers")
     
     if not case_name in testcases:
         return
     
     
     
-    for browser in env.TESTING_BROWSERS.split('|'):
-        env.RUNNING_BROWSER = browser
+    for browser in environment.TESTING_BROWSERS.split('|'):
+        environment.RUNNING_BROWSER = browser
         
         
         ##### Launch Browser
@@ -165,7 +174,7 @@ def run_case(module_name, case_name):
         
         
         ##### Clear Environment. Quite Browser, Kill Driver Processes.
-        testcase_tail_cleaning()
+        testcase_windingup()
 
 
 

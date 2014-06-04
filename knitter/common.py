@@ -1,12 +1,8 @@
-﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 
-import datetime, os, sys
-
-import xlrd
-
-import env, log
+import datetime, os, sys, xlrd
+import environment, log
 
 
 def stamp_date():
@@ -68,7 +64,7 @@ def mkdirs(dir_path):
 
 
 def setconf(arg, value):
-    conf_file = u"%s\\conf.ini" % env.PROJECT_PATH
+    conf_file = u"%s\\conf.ini" % environment.PROJECT_PATH
     data_all  = ""
     arg_exist = False
     
@@ -108,7 +104,7 @@ def setconf(arg, value):
 
 
 def getconf(arg):
-    conf_file = u"%s\\conf.ini" % env.PROJECT_PATH
+    conf_file = u"%s\\conf.ini" % environment.PROJECT_PATH
     
     if os.path.exists(conf_file):
         if os.path.isfile(conf_file):
@@ -120,9 +116,9 @@ def getconf(arg):
                         if not data:
                             break
                        
-                        data = data.decode('utf-8')
+                        data = data
                         if data.split('=')[0].strip() == arg:
-                            return data.split('=', 1)[1].splitlines()[0].strip()
+                            return str(data.split('=', 1)[1].splitlines()[0].strip())
                 
             except IOError:
                 return ""
@@ -160,7 +156,6 @@ def excel_get_value_by_row_number(xls_path, sheet_name, x, colname):
 
 
 if __name__ == "__main__":
-    #proxy_override()
     pass
 
 

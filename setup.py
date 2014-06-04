@@ -1,12 +1,40 @@
 # -*- coding: utf-8 -*-
 
-from distutils.core import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
-setup(name='knitter',
-      version='0.1',
-      description='Python Web Automation Test Framework with Selenium WebDriver',
-      author='Hongwei Wang',
-      author_email='hww712@gmail.com',
-      url='https://github.com/hww712/PyWebAuto',
-      packages=['knitter'],
-      )
+
+setup(
+    name                    = 'knitter',
+    version                 = '0.1.0',
+    
+    author                  = 'Hongwei Wang',
+    author_email            = 'hww712@gmail.com',
+    maintainer              = 'Hongwei Wang',
+    maintainer_email        = 'hww712@gmail.com',
+    
+    url                     = 'https://github.com/hww712/Knitter',
+    description             = 'Python Web Automation Test Framework with Selenium WebDriver',
+    long_description        = 'This is a web testing framework based on Selenium WebDriver. The object is to develop web testing automation project with good implementation, maintainance and extendability.',
+    
+    classifiers             = ['Topic :: Software Development :: Testing', 'Topic :: Software Development :: Quality Assurance'],
+    platforms               = ['linux', 'windows'],
+    license                 = 'MIT License',
+    
+    packages                = ['knitter'],
+    
+    requires                = ['selenium', 'xlrd', 'xlwt'],
+)
+
+
+
+
+
+
+
+
+
+
+

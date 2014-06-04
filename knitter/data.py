@@ -1,14 +1,13 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import xlrd
 
-import env
+import environment
 
 
-class Read(object):
+class ExcelSheet(object):
     def __init__(self, excel, sheet):
-        self.excel = xlrd.open_workbook("%s\%s" % (env.PROJECT_PATH, excel))
+        self.excel = xlrd.open_workbook("%s\%s" % (environment.PROJECT_PATH, excel))
         self.sheet = self.excel.sheet_by_name(sheet)
     
     def get_value_by_position(self, row, column):
@@ -42,7 +41,7 @@ class Read(object):
 
 #for testing...
 if __name__=="__main__":
-    t = Read("E:\\WorkSpace\\ODMAutomation\\Data\\BasicSearch.xlsx", "STT Number")
+    t = ExcelSheet("E:\\WorkSpace\\ODMAutomation\\Data\\BasicSearch.xlsx", "STT Number")
     
     print t.get_value_by_position(16, 0)
     print t.row_count()
