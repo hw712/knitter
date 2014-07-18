@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import datetime, os, sys, xlrd, inspect
 
-import datetime, os, sys, xlrd
 import environment, log
 
 
@@ -15,6 +15,55 @@ def stamp_datetime_coherent():
     return datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")
 
 
+def exception_error():
+    error_message = u"""Error!
+======================================== Error Message ====================================
+    File:          %s
+    Line:          %s
+    Function:      %s
+    Statement:     %s
+    Error Message: %s
+-------------------------------------------------------------------------------------------
+    File:          %s
+    Line:          %s
+    Function:      %s
+    Statement:     %s
+======================================== Error Message ======================================================""" % (
+    inspect.trace()[-1][1], 
+    inspect.trace()[-1][2],
+    inspect.trace()[-1][3],
+    inspect.trace()[-1][4],
+    sys.exc_info(),
+    inspect.trace()[-2][1], 
+    inspect.trace()[-2][2],
+    inspect.trace()[-2][3],
+    inspect.trace()[-2][4],
+    )
+    
+    
+    error_message = ""
+    for i in range(len(inspect.trace())):
+        error_line = u"""
+File:      %s - [%s]
+Function:  %s
+Statement: %s
+-------------------------------------------------------------------------------------------""" % (
+        inspect.trace()[i][1], 
+        inspect.trace()[i][2], 
+        inspect.trace()[i][3], 
+        inspect.trace()[i][4])
+        
+        error_message = "%s%s" % (error_message, error_line)
+    
+    
+    error_message = """Error!
+%s
+%s
+======================================== Error Message ====================================%s
+
+======================================== Error Message ======================================================""" % (sys.exc_info()[0], sys.exc_info()[1], error_message)
+    
+    return error_message
 
 
 def add_unique_postfix(fn):
@@ -115,8 +164,7 @@ def getconf(arg):
                         
                         if not data:
                             break
-                       
-                        data = data
+                        
                         if data.split('=')[0].strip() == arg:
                             return str(data.split('=', 1)[1].splitlines()[0].strip())
                 

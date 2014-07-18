@@ -10,23 +10,25 @@ import log, environment, common
 
 
 def launch_browser():
-    environment.PROJECT_PATH = inspect.stack()[2][1].rsplit("\\", 1)[0]
-    
     
     if environment.RUNNING_BROWSER == "Firefox":
-        os.popen("TASKKILL /F /IM firefox.exe")
+        #os.popen("TASKKILL /F /IM firefox.exe")
         
         binary_path = common.getconf("BinaryPath_Firefox")
         
+        from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+        fp = FirefoxProfile()
+        fp.native_events_enabled = False
+        
         if binary_path == "":
-            environment.BROWSER = webdriver.Firefox()
+            environment.BROWSER = webdriver.Firefox(firefox_profile=fp)
         else:
             fb = FirefoxBinary(firefox_path=binary_path)
-            environment.BROWSER = webdriver.Firefox(firefox_binary=fb)
+            environment.BROWSER = webdriver.Firefox(firefox_profile=fp, firefox_binary=fb)
     
     
     elif environment.RUNNING_BROWSER == "Chrome":
-        os.popen("TASKKILL /F /IM chrome.exe")
+        #os.popen("TASKKILL /F /IM chrome.exe")
         os.popen("TASKKILL /F /IM chromedriver.exe")
         
         binary_path  = common.getconf("BinaryPath_Chrome")
@@ -44,13 +46,18 @@ def launch_browser():
     
     
     elif environment.RUNNING_BROWSER == "IE":
-        os.popen("TASKKILL /F /IM iexplore.exe")
+        #os.popen("TASKKILL /F /IM iexplore.exe")
         os.popen("TASKKILL /F /IM IEDriverServer.exe")
         
+        from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+        dc = DesiredCapabilities.INTERNETEXPLORER.copy()
+        
+        dc['acceptSslCerts'] = True
+        dc['nativeEvents']   = True
         
         iedriver = common.getconf("DriverPath_IE")
         os.environ["webdriver.ie.driver"] = iedriver
-        environment.BROWSER = webdriver.Ie(iedriver)
+        environment.BROWSER = webdriver.Ie(executable_path=iedriver, capabilities=dc)
     
     
     else:
@@ -80,7 +87,7 @@ def testcase_windingup():
 
 
 def run_module(module_name):
-    testmodule = importlib.import_module(module_name)
+    testmodule = importlib.import_module("testcase.%s" % module_name)
     
     environment.MODULE_NAME = module_name.split('.')[-1]
     testcases = [testmodule.__dict__.get(a).__name__ for a in dir(testmodule)
@@ -131,7 +138,7 @@ def run_module(module_name):
 
 
 def run_case(module_name, case_name):
-    testmodule = importlib.import_module(module_name)
+    testmodule = importlib.import_module("testcase.%s" % module_name)
     
     environment.MODULE_NAME = module_name.split('.')[-1]
     testcases = [testmodule.__dict__.get(a).__name__ for a in dir(testmodule)

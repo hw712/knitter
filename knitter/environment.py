@@ -2,7 +2,7 @@
 
 
 # Driver of web browser, such as: webdriver.Firefox()
-BROWSER             = None
+BROWSER             = ""
 
 
 # Root path of the testing project.

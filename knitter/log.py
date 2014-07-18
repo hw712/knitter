@@ -138,13 +138,17 @@ def handle_error():
     if environment.CASE_PASS == False:
         return
     
+    
     if sys.exc_info()[0] != None:
-        screenshot_name = "%s_fail_%s.png" % (environment.RUNNING_BROWSER, common.stamp_datetime_coherent())
+        step_normal(common.exception_error())
+        
+        screenshot_name = "%s_error_%s.png" % (environment.RUNNING_BROWSER, common.stamp_datetime_coherent())
         
         common.mkdirs("%s\\result\\screenshots\\" % environment.PROJECT_PATH)
         environment.BROWSER.save_screenshot(u"%s\\result\\screenshots\\%s" % (environment.PROJECT_PATH, screenshot_name))
         
-        step_normal("Error Info:\n%s, %s, %s\nPlease check screen short [%s]" % (sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2], screenshot_name))
+        step_normal("Please check screen short [%s]" % (screenshot_name))
+        
         
         environment.CASE_PASS = False
 
