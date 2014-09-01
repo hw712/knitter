@@ -2,12 +2,12 @@
 
 import xlrd
 
-import environment, log
+import env, log
 
 
-class ExcelSheet(object):
+class ExcelSheet:
     def __init__(self, excel, sheet):
-        self.excel = xlrd.open_workbook(r"%s\data\%s" % (environment.PROJECT_PATH, excel))
+        self.excel = xlrd.open_workbook(r"%s\data\%s" % (env.PROJECT_PATH, excel))
         self.sheet = self.excel.sheet_by_name(sheet)
     
     def nrows(self):

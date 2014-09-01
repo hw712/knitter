@@ -2,7 +2,7 @@
 
 import datetime, os, sys, xlrd, inspect
 
-import environment, log
+import env, log
 
 
 def stamp_date():
@@ -16,31 +16,6 @@ def stamp_datetime_coherent():
 
 
 def exception_error():
-    error_message = u"""Error!
-======================================== Error Message ====================================
-    File:          %s
-    Line:          %s
-    Function:      %s
-    Statement:     %s
-    Error Message: %s
--------------------------------------------------------------------------------------------
-    File:          %s
-    Line:          %s
-    Function:      %s
-    Statement:     %s
-======================================== Error Message ======================================================""" % (
-    inspect.trace()[-1][1], 
-    inspect.trace()[-1][2],
-    inspect.trace()[-1][3],
-    inspect.trace()[-1][4],
-    sys.exc_info(),
-    inspect.trace()[-2][1], 
-    inspect.trace()[-2][2],
-    inspect.trace()[-2][3],
-    inspect.trace()[-2][4],
-    )
-    
-    
     error_message = ""
     for i in range(len(inspect.trace())):
         error_line = u"""
@@ -113,7 +88,7 @@ def mkdirs(dir_path):
 
 
 def setconf(arg, value):
-    conf_file = u"%s\\conf.ini" % environment.PROJECT_PATH
+    conf_file = u"%s\\conf.ini" % env.PROJECT_PATH
     data_all  = ""
     arg_exist = False
     
@@ -153,7 +128,7 @@ def setconf(arg, value):
 
 
 def getconf(arg):
-    conf_file = u"%s\\conf.ini" % environment.PROJECT_PATH
+    conf_file = u"%s\\conf.ini" % env.PROJECT_PATH
     
     if os.path.exists(conf_file):
         if os.path.isfile(conf_file):

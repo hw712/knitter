@@ -4,7 +4,7 @@ import datetime, sys
 
 import xlwt
 
-import environment
+import env
 import common
 
 
@@ -15,7 +15,7 @@ def generate_result_xls():
     style_green = xlwt.easyxf('font: colour green, bold False;')
     style_bold  = xlwt.easyxf('font: colour black, bold True;')
     
-    for m in environment.EXCEL_REPORT_DATA:
+    for m in env.EXCEL_REPORT_DATA:
         if m.has_key("Name"):
             sheet = wbk.add_sheet(m["Name"])
             
@@ -54,7 +54,7 @@ def generate_result_xls():
                 
                 i = i + 1
     
-    wbk.save(common.force_delete_file(u"%s\\result\\Result.xls" % environment.PROJECT_PATH))
+    wbk.save(common.force_delete_file(u"%s\\result\\result.xls" % env.PROJECT_PATH))
 
 
 
@@ -75,82 +75,88 @@ def add_excel_report_data(list_all=[], module_name="TestModule", case_name="Test
 
 
 def start_test(case_name):
-    environment.CASE_NAME       = case_name
-    environment.CASE_START_TIME = datetime.datetime.now().replace(microsecond=0)
-    environment.CASE_PASS       = True
+    env.CASE_NAME       = case_name
+    env.CASE_START_TIME = datetime.datetime.now().replace(microsecond=0)
+    env.CASE_PASS       = True
     
-    common.mkdirs("%s\\result\\screenshots\\" % environment.PROJECT_PATH)
-    common.mkdirs("%s\\result\\testcase\\" % environment.PROJECT_PATH)
+    common.mkdirs("%s\\result\\screenshots\\" % env.PROJECT_PATH)
+    common.mkdirs("%s\\result\\testcase\\" % env.PROJECT_PATH)
     
-    with open(u"%s\\result\\testcase\\%s_%s.TXT" % (environment.PROJECT_PATH, environment.CASE_NAME, common.stamp_date()), "a") as f:
-        f.write(u"\n**************  Test Case [%s] [%s]  ***************\n" %(environment.CASE_NAME, environment.RUNNING_BROWSER))
+    with open(u"%s\\result\\testcase\\%s__%s.log" % (env.PROJECT_PATH, env.CASE_NAME, common.stamp_date()), "a") as f:
+        f.write(u"\n**************  Test Case [%s] [%s]  ***************\n" %(env.CASE_NAME, env.RUNNING_BROWSER))
 
 
 def stop_test():
-    environment.CASE_STOP_TIME = datetime.datetime.now().replace(microsecond=0)
+    env.CASE_STOP_TIME = datetime.datetime.now().replace(microsecond=0)
     
-    with open(u"%s\\result\\summary.txt" % environment.PROJECT_PATH, "a") as f:
-        if environment.CASE_PASS == True:
-            add_excel_report_data(environment.EXCEL_REPORT_DATA, environment.MODULE_NAME, environment.CASE_NAME, environment.RUNNING_BROWSER, "Pass")
-            f.write(u"%s    [%s]  =>  [Pass] [%s] [%s]\n" %(common.stamp_datetime(), environment.CASE_NAME, environment.CASE_STOP_TIME - environment.CASE_START_TIME, environment.RUNNING_BROWSER))
+    with open(u"%s\\result\\summary.log" % env.PROJECT_PATH, "a") as f:
+        if env.CASE_PASS == True:
+            add_excel_report_data(env.EXCEL_REPORT_DATA, env.MODULE_NAME, env.CASE_NAME, env.RUNNING_BROWSER, "Pass")
+            f.write(u"%s    [Pass]  =>  [%s] [%s] [%s]\n" %(common.stamp_datetime(), 
+                                                            env.CASE_STOP_TIME - env.CASE_START_TIME, 
+                                                            env.CASE_NAME, 
+                                                            env.RUNNING_BROWSER))
         else:
-            add_excel_report_data(environment.EXCEL_REPORT_DATA, environment.MODULE_NAME, environment.CASE_NAME, environment.RUNNING_BROWSER, "Fail")
-            f.write(u"%s    [%s]  =>  [Fail] [%s] [%s] :( \n" %(common.stamp_datetime(), environment.CASE_NAME, environment.CASE_STOP_TIME - environment.CASE_START_TIME, environment.RUNNING_BROWSER))
+            add_excel_report_data(env.EXCEL_REPORT_DATA, env.MODULE_NAME, env.CASE_NAME, env.RUNNING_BROWSER, "Fail")
+            f.write(u"%s    [Fail]  =>  [%s] [%s] [%s]  :( \n" %(common.stamp_datetime(), 
+                                                                 env.CASE_STOP_TIME - env.CASE_START_TIME, 
+                                                                 env.CASE_NAME, 
+                                                                 env.RUNNING_BROWSER))
     
     generate_result_xls()
-    environment.CASE_PASS = True
+    env.CASE_PASS = True
 
 
 
 def step_section(message):
-    with open(u"%s\\result\\testcase\%s_%s.TXT" % (environment.PROJECT_PATH, environment.CASE_NAME, common.stamp_date()), "a") as f:
+    with open(u"%s\\result\\TestCase\%s__%s.log" % (env.PROJECT_PATH, env.CASE_NAME, common.stamp_date()), "a") as f:
         f.write(u"\n%s    Section: %s\n" %(common.stamp_datetime(), message))
 
 
 def step_normal(message):
-    with open(u"%s\\result\\testcase\\%s_%s.TXT" % (environment.PROJECT_PATH, environment.CASE_NAME, common.stamp_date()), "a") as f:
+    with open(u"%s\\result\\testcase\\%s__%s.log" % (env.PROJECT_PATH, env.CASE_NAME, common.stamp_date()), "a") as f:
         f.write(u"%s    Step: %s\n" %(common.stamp_datetime(), message))
 
 
 def step_pass(message):
-    with open(u"%s\\result\\testcase\\%s_%s.TXT" % (environment.PROJECT_PATH, environment.CASE_NAME, common.stamp_date()), "a") as f:
+    with open(u"%s\\result\\testcase\\%s__%s.log" % (env.PROJECT_PATH, env.CASE_NAME, common.stamp_date()), "a") as f:
         f.write(u"%s    Pass: %s\n" %(common.stamp_datetime(), message))
 
 
 def step_fail(message):
-    screenshot_name = "%s_fail_%s.png" % (environment.RUNNING_BROWSER, common.stamp_datetime_coherent())
+    screenshot_name = "%s__%s__Fail__%s.png" % (env.CASE_NAME, env.RUNNING_BROWSER, common.stamp_datetime_coherent())
     
-    with open(u"%s\\result\\testcase\\%s_%s.TXT" % (environment.PROJECT_PATH, environment.CASE_NAME, common.stamp_date()), "a") as f:
+    with open(u"%s\\result\\testcase\\%s__%s.log" % (env.PROJECT_PATH, env.CASE_NAME, common.stamp_date()), "a") as f:
         f.write(u"------------ Fail [%s] -------------------\n"%common.stamp_datetime())
         f.write(u"%s    Fail: %s, Check ScreenShot [%s]\n" %(common.stamp_datetime(), message, screenshot_name))
         f.write(u"------------ Fail [%s] --------------------------------------------\n"%common.stamp_datetime())
     
-    common.mkdirs("%s\\result\\screenshots\\" % environment.PROJECT_PATH)
-    environment.BROWSER.save_screenshot(u"%s\\result\\screenshots\\%s" % (environment.PROJECT_PATH, screenshot_name))
+    common.mkdirs("%s\\result\\screenshots\\" % env.PROJECT_PATH)
+    env.BROWSER.save_screenshot(u"%s\\result\\screenshots\\%s" % (env.PROJECT_PATH, screenshot_name))
     
-    environment.CASE_PASS = False
+    env.CASE_PASS = False
     
     raise AssertionError(message)
 
 
 
 def handle_error():
-    if environment.CASE_PASS == False:
+    if env.CASE_PASS == False:
         return
     
     
     if sys.exc_info()[0] != None:
         step_normal(common.exception_error())
         
-        screenshot_name = "%s_error_%s.png" % (environment.RUNNING_BROWSER, common.stamp_datetime_coherent())
+        screenshot_name = "%s__%s__Error_%s.png" % (env.CASE_NAME, env.RUNNING_BROWSER, common.stamp_datetime_coherent())
         
-        common.mkdirs("%s\\result\\screenshots\\" % environment.PROJECT_PATH)
-        environment.BROWSER.save_screenshot(u"%s\\result\\screenshots\\%s" % (environment.PROJECT_PATH, screenshot_name))
+        common.mkdirs("%s\\result\\screenshots\\" % env.PROJECT_PATH)
+        env.BROWSER.save_screenshot(u"%s\\result\\screenshots\\%s" % (env.PROJECT_PATH, screenshot_name))
         
         step_normal("Please check screen short [%s]" % (screenshot_name))
         
         
-        environment.CASE_PASS = False
+        env.CASE_PASS = False
 
 
 
