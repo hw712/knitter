@@ -3,6 +3,7 @@ setup.py
 knitter/__init__.py
 knitter/common.py
 knitter/datadriver.py
+knitter/env.py
 knitter/environment.py
 knitter/executer.py
 knitter/log.py
