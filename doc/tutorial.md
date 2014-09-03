@@ -27,9 +27,9 @@ Preconditions
 Start Testing
 -----------------------------------------------------------------------
 
-+ Test page: ([http://sleepycat.org/static/knitter/KnitterDemo.html](http://sleepycat.org/static/knitter/KnitterDemo.html))
++ Test Page: ([http://sleepycat.org/static/knitter/KnitterDemo.html](http://sleepycat.org/static/knitter/KnitterDemo.html))
 
-+ Demo project: ([https://github.com/hww712/Knitter/tree/master/examples/DemoProject](https://github.com/hww712/Knitter/tree/master/examples/DemoProject))
++ Demo Project: ([https://github.com/hww712/Knitter/tree/master/examples/DemoProject](https://github.com/hww712/Knitter/tree/master/examples/DemoProject))
 
 
 #### 1). Create project folder structure.
@@ -54,6 +54,7 @@ Start Testing
 
 + All element class must inherit from "WebElement".
 
+
     # -*- coding: utf-8 -*-
 
     from knitter.webelement import WebElement
@@ -77,6 +78,7 @@ Start Testing
 #### 3). Add test case module "demo_module.py" under "testcase/"
 
 + Just import the page you need, and use it directly.
+
 
     # -*- coding: utf-8 -*-
 
@@ -105,16 +107,20 @@ Start Testing
 
 #### 4). Configure "conf.ini"
 
-    DRIVER_CHROME: is where the Chrome driver locates.
-    DRIVER_IE:     is where the IE driver locates.
-    TESTING_URL:   is the start up URL for testing.
+    DRIVER_CHROME: where the Chrome driver locates.
+    DRIVER_IE:     where the IE driver locates.
+    TESTING_URL:   start up URL for testing.
 
-    TESTING_BROWSERS: Multi browsers divided by "|", and will run test case one time on each browser.
+    TESTING_BROWSERS: Multi browsers divided by "|", will run test case one time on each browser.
 
 
 #### 5) Configure "runner.py", and run it.
 
-    executer.run_module("demo_module") # Will run all test cases of module "testcase/demo_module.py".
+    # Will run all test cases of module "testcase/demo_module.py".
+    executer.run_module("demo_module") 
+    
+    # Run specified test case of test module.
+    executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
 run "runner.py", check result in "result/" folder.
 
