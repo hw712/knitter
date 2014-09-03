@@ -1,0 +1,6 @@
+2014-09-03 13:42:17    [Pass]  =>  [0:00:00] [TestCase001_Normal_Input_Test] [Chrome]
+2014-09-03 13:42:30    [Pass]  =>  [0:00:02] [TestCase001_Normal_Input_Test] [IE]
+2014-09-03 13:42:47    [Pass]  =>  [0:00:01] [TestCase001_Normal_Input_Test] [Firefox]
+2014-09-03 13:42:59    [Pass]  =>  [0:00:01] [TestCase002_Data_In_Excel] [Chrome]
+2014-09-03 13:43:17    [Pass]  =>  [0:00:08] [TestCase002_Data_In_Excel] [IE]
+2014-09-03 13:43:35    [Pass]  =>  [0:00:02] [TestCase002_Data_In_Excel] [Firefox]
