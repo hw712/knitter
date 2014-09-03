@@ -22,7 +22,7 @@ Tutorial
 
 ### How to Start
 
-** Let's take page [http://sleepycat.org/static/knitter/KnitterDemo.html](http://sleepycat.org/static/knitter/KnitterDemo.html) as an example test page for a demo. **
+Let's take page [http://sleepycat.org/static/knitter/KnitterDemo.html](http://sleepycat.org/static/knitter/KnitterDemo.html) as an example test page for demo.
 
 #### 1) Create project folder structure.
 
