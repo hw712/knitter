@@ -116,6 +116,10 @@ Start Testing
 
 #### 5) Configure "runner.py", and run it.
 
+    # -*- coding: utf-8 -*-
+    
+    from knitter import executer
+
     # Will run all test cases of module "testcase/demo_module.py".
     executer.run_module("demo_module") 
     
