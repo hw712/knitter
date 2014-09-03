@@ -55,23 +55,23 @@ Start Testing
 + All element class must inherit from "WebElement".
 
 
-    # -*- coding: utf-8 -*-
-
-    from knitter.webelement import WebElement
-    from selenium.webdriver.common.by import By
-
-    class SubmitButton(WebElement):
-        (by, value) = (By.XPATH, '//button[@onclick="do_submit();"]')
-
-    class ResetButton(WebElement):
-        (by, value) = (By.XPATH, '//button[@onclick="do_reset();"]')
-
-    class Gender:
-        class Male(WebElement):
-            (by, value) = (By.ID, 'male')
-
-        class Female(WebElement):
-            (by, value) = (By.ID, 'female')
+        # -*- coding: utf-8 -*-
+    
+        from knitter.webelement import WebElement
+        from selenium.webdriver.common.by import By
+    
+        class SubmitButton(WebElement):
+            (by, value) = (By.XPATH, '//button[@onclick="do_submit();"]')
+    
+        class ResetButton(WebElement):
+            (by, value) = (By.XPATH, '//button[@onclick="do_reset();"]')
+    
+        class Gender:
+            class Male(WebElement):
+                (by, value) = (By.ID, 'male')
+    
+            class Female(WebElement):
+                (by, value) = (By.ID, 'female')
 
 
 
@@ -80,29 +80,29 @@ Start Testing
 + Just import the page you need, and use it directly.
 
 
-    # -*- coding: utf-8 -*-
-
-    from page import DemoPage
-
-    def TestCase001_Normal_Input_Test():
-
-        #### Name ###
-        DemoPage.Name.Title.Select("Mr.")
-        DemoPage.Name.Name.Set("Henry.Wang")
-
-        ### Gender ###
-        DemoPage.Gender.Male.Click()
-
-        ### Hobbies ###
-        DemoPage.Hobby.Music.Click()
-        DemoPage.Hobby.Travel.Click()
-
-        ###### Result ######
-        DemoPage.SubmitButton.Click()
-
-        DemoPage.Result.VerifyInnerHTMLContains("Henry.Wang")
-        DemoPage.Result.VerifyInnerHTMLContains("Gender: male")
-        DemoPage.Result.VerifyInnerHTMLContains("Hobbies: Music Travel")
+        # -*- coding: utf-8 -*-
+    
+        from page import DemoPage
+    
+        def TestCase001_Normal_Input_Test():
+    
+            #### Name ###
+            DemoPage.Name.Title.Select("Mr.")
+            DemoPage.Name.Name.Set("Henry.Wang")
+    
+            ### Gender ###
+            DemoPage.Gender.Male.Click()
+    
+            ### Hobbies ###
+            DemoPage.Hobby.Music.Click()
+            DemoPage.Hobby.Travel.Click()
+    
+            ###### Result ######
+            DemoPage.SubmitButton.Click()
+    
+            DemoPage.Result.VerifyInnerHTMLContains("Henry.Wang")
+            DemoPage.Result.VerifyInnerHTMLContains("Gender: male")
+            DemoPage.Result.VerifyInnerHTMLContains("Hobbies: Music Travel")
 
 
 #### 4). Configure "conf.ini"
