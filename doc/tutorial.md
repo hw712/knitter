@@ -10,9 +10,9 @@ Tutorial
 
 + Support Python 2.7, NOT support Python 3.
 
-+ Knitter depends on selenium/xlrd/xlwt packages, which will be installed while installing knitter.
++ Knitter depends on selenium, xlrd, xlwt packages, which will be installed while installing knitter.
 
-+ You need to have ChromeDriver and IDDriver to run test on Chrome and IE. I put the driver files in folder: [https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers)
++ You need to have ChromeDriver and IEDriver to run test on Chrome and IE. I put the driver files in folder: [https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers)
 
     - Download Chrome Driver: [http://chromedriver.storage.googleapis.com/index.html](http://chromedriver.storage.googleapis.com/index.html)
 
