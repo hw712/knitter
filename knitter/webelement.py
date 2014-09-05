@@ -195,7 +195,7 @@ class WebElement:
         cls._wait()
         elements = env.BROWSER.find_elements(cls.by, cls.value)
         
-        #log.step_normal(u"Element [%s]: InnerHTML = [%s]" % (cls.__name__, elements[cls.index].get_attribute('innerHTML')))
+        log.step_normal(u"Element [%s]: InnerHTML = [%s]" % (cls.__name__, elements[cls.index].get_attribute('innerHTML')))
         
         cls._clearup()
         return elements[cls.index].get_attribute('innerHTML')
@@ -216,7 +216,7 @@ class WebElement:
     
     
     @classmethod
-    def AppearingWait(cls):
+    def WaitForAppearing(cls):
         log.step_normal("Element [%s]: AppearingWait." % (cls.__name__))
         
         cls._wait_for_appearing()
@@ -224,7 +224,7 @@ class WebElement:
     
     
     @classmethod
-    def DisappearingWait(cls):
+    def WaitForDisappearing(cls):
         log.step_normal("Element [%s]: DisappearingWait." % (cls.__name__))
         
         cls._wait_for_disappearing()
