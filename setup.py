@@ -18,7 +18,7 @@ setup(
     
     classifiers             = ['Topic :: Software Development :: Testing', 'Topic :: Software Development :: Quality Assurance'],
     platforms               = ['linux', 'windows'],
-    license                 = 'GPL License',
+    license                 = 'BSD License',
     
     packages                = ['knitter'],
     
