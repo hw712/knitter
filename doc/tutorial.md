@@ -32,7 +32,7 @@ Start Testing
 + Demo Project: ([https://github.com/hww712/Knitter/tree/master/examples/DemoProject](https://github.com/hww712/Knitter/tree/master/examples/DemoProject))
 
 
-#### 1). Create project folder structure.
+#### Step 1. Create project folder structure.
 
     test project folder structure:
 
@@ -50,62 +50,62 @@ Start Testing
                runner.py
 
 
-#### 2). Add test page module "DemoPage.py" under "page/"
+#### Step 2. Add test page module "DemoPage.py" under "page/"
 
-+ All element class must inherit from "WebElement".
-
-
-        # -*- coding: utf-8 -*-
-    
-        from knitter.webelement import WebElement
-        from selenium.webdriver.common.by import By
-    
-        class SubmitButton(WebElement):
-            (by, value) = (By.XPATH, '//button[@onclick="do_submit();"]')
-    
-        class ResetButton(WebElement):
-            (by, value) = (By.XPATH, '//button[@onclick="do_reset();"]')
-    
-        class Gender:
-            class Male(WebElement):
-                (by, value) = (By.ID, 'male')
-    
-            class Female(WebElement):
-                (by, value) = (By.ID, 'female')
+All element class must inherit from "WebElement".
 
 
+    # -*- coding: utf-8 -*-
 
-#### 3). Add test case module "demo_module.py" under "testcase/"
+    from knitter.webelement import WebElement
+    from selenium.webdriver.common.by import By
 
-+ Just import the page you need, and use it directly.
+    class SubmitButton(WebElement):
+        (by, value) = (By.XPATH, '//button[@onclick="do_submit();"]')
 
+    class ResetButton(WebElement):
+        (by, value) = (By.XPATH, '//button[@onclick="do_reset();"]')
 
-        # -*- coding: utf-8 -*-
-    
-        from page import DemoPage
-    
-        def TestCase001_Normal_Input_Test():
-    
-            #### Name ###
-            DemoPage.Name.Title.Select("Mr.")
-            DemoPage.Name.Name.Set("Henry.Wang")
-    
-            ### Gender ###
-            DemoPage.Gender.Male.Click()
-    
-            ### Hobbies ###
-            DemoPage.Hobby.Music.Click()
-            DemoPage.Hobby.Travel.Click()
-    
-            ###### Result ######
-            DemoPage.SubmitButton.Click()
-    
-            DemoPage.Result.VerifyInnerHTMLContains("Henry.Wang")
-            DemoPage.Result.VerifyInnerHTMLContains("Gender: male")
-            DemoPage.Result.VerifyInnerHTMLContains("Hobbies: Music Travel")
+    class Gender:
+        class Male(WebElement):
+            (by, value) = (By.ID, 'male')
+
+        class Female(WebElement):
+            (by, value) = (By.ID, 'female')
 
 
-#### 4). Configure "conf.ini"
+
+#### Step 3. Add test case module "demo_module.py" under "testcase/"
+
+Just import the page you need, and use it directly.
+
+
+    # -*- coding: utf-8 -*-
+
+    from page import DemoPage
+
+    def TestCase001_Normal_Input_Test():
+
+        #### Name ###
+        DemoPage.Name.Title.Select("Mr.")
+        DemoPage.Name.Name.Set("Henry.Wang")
+
+        ### Gender ###
+        DemoPage.Gender.Male.Click()
+
+        ### Hobbies ###
+        DemoPage.Hobby.Music.Click()
+        DemoPage.Hobby.Travel.Click()
+
+        ###### Result ######
+        DemoPage.SubmitButton.Click()
+
+        DemoPage.Result.VerifyInnerHTMLContains("Henry.Wang")
+        DemoPage.Result.VerifyInnerHTMLContains("Gender: male")
+        DemoPage.Result.VerifyInnerHTMLContains("Hobbies: Music Travel")
+
+
+#### Step 4. Configure "conf.ini"
 
     DRIVER_CHROME: where the Chrome driver locates.
     DRIVER_IE:     where the IE driver locates.
@@ -114,7 +114,7 @@ Start Testing
     TESTING_BROWSERS: Multi browsers divided by "|", will run test case one time on each browser.
 
 
-#### 5) Configure "runner.py", and run it.
+#### Step 5. Configure "runner.py", and run it.
 
     # -*- coding: utf-8 -*-
     
