@@ -16,33 +16,33 @@ Tutorial
 
 + Drivers
 
-    - [Chrome Driver](http://chromedriver.storage.googleapis.com/index.html)
+    - [Chrome driver](http://chromedriver.storage.googleapis.com/index.html)
 
-    - [IE Driver](http://selenium-release.storage.googleapis.com/index.html)
+    - [IE driver](http://selenium-release.storage.googleapis.com/index.html)
 
-    - You can also find drivers [here](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers).
+    - You can also find both driver files [here](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers).
 
 
 
 3. Start Demo Project
 -----------------------------------------------------------------------
 
-+ [Demo Project Test Script](https://github.com/hww712/Knitter/tree/master/examples/DemoProject))
++ [Demo project test script](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
 
-+ [Demo Project Test Page](http://sleepycat.org/static/knitter/KnitterDemo.html))
++ [Demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
 
 #### Step 1. Create project folder structure.
 
     test project folder structure:
 
-    DemoProject\
-               |data\...   (Excel Data Files, such as "TestData.xlsx")
-               |page\
+    DemoProject/
+               data/...   (Excel Data Files, such as "TestData.xlsx")
+               page/
                      __init__.py
                      DemoPage.py
                      ...
-               |testcase\
+               testcase/
                      __init__.py
                      demo_module.py
                      ...
@@ -54,9 +54,11 @@ Tutorial
 
 
     # -*- coding: utf-8 -*-
+    # All element class must inherit from "WebElement".
 
     from knitter.webelement import WebElement
     from selenium.webdriver.common.by import By
+    
 
     class SubmitButton(WebElement):
         (by, value) = (By.XPATH, '//button[@onclick="do_submit();"]')
@@ -72,7 +74,7 @@ Tutorial
             (by, value) = (By.ID, 'female')
 
 
-+ All element class must inherit from "WebElement".
+
 
 
 
@@ -80,6 +82,7 @@ Tutorial
 
 
     # -*- coding: utf-8 -*-
+    # Just import the page you need, and use it directly.
 
     from page import DemoPage
 
@@ -104,7 +107,6 @@ Tutorial
         DemoPage.Result.VerifyInnerHTMLContains("Hobbies: Music Travel")
 
 
-+ Just import the page you need, and use it directly.
 
 
 #### Step 4. Configure "conf.ini"
@@ -125,7 +127,7 @@ Tutorial
     # Run specified test case of test module "testcase/demo_module.py".
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
-run "runner.py", check result in "result/" folder.
+**Run "runner.py", check result in "result/" folder.**
 
 
 
