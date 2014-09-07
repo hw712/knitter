@@ -24,12 +24,12 @@ Tutorial
 
 
 
-3. Start Demo Project
+3. Start Testing
 -----------------------------------------------------------------------
 
-+ [Demo project test script](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
++ [demo project test script](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
 
-+ [Demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
++ [demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
 
 #### Step 1. Create Project Folder Structure.
@@ -126,7 +126,7 @@ Tutorial
     # Run specified test case of test module "testcase/demo_module.py".
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
-**Run "runner.py", check result in "result/" folder.**
++ **Run "runner.py", check result in "result/" folder.**
 
 
 
