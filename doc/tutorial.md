@@ -109,12 +109,21 @@ Tutorial
 
 
 #### Step 4. Configure "conf.ini"
+    
+    DRIVER_CHROME       = E:\WorkSpace\GitHub-Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
+    DRIVER_IE           = E:\WorkSpace\GitHub-Knitter\examples\DemoProject\drivers\IEDriverServer_Win32_2.42.0\IEDriverServer.exe
+    
+    TESTING_URL         = http://sleepycat.org/static/knitter/KnitterDemo.html
+    TESTING_BROWSERS    = Chrome|IE|Firefox
 
-    DRIVER_CHROME: where the Chrome driver locates.
-    DRIVER_IE:     where the IE driver locates.
-    TESTING_URL:   start up URL for testing.
 
-    TESTING_BROWSERS: Multi browsers divided by "|", will run test case one time on each browser.
++ TESTING_URL
+
+    - start up URL for testing.
+
++ TESTING_BROWSERS
+
+    - Multi browsers divided by "|", will run test case one time on each browser.
 
 
 #### Step 5. Configure "runner.py", and run it.
