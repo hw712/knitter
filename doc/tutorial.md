@@ -1,35 +1,35 @@
 Tutorial
 =======================================================================
 
-Installation
+1. Installation
 -----------------------------------------------------------------------
 
     pip install knitter
 
 
-Preconditions
+2. Preconditions
 -----------------------------------------------------------------------
 
-+ Support Python 2.7, NOT support Python 3.
++ Python 2.7
 
-+ Depends on selenium, xlrd, xlwt packages, which will be installed while installing knitter.
++ Depends on "selenium", "xlrd", "xlwt" packages, which will be installed while installing knitter.
 
-+ Chrome/IE Driver: 
++ Drivers
 
-    - [https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers)
+    - [Chrome Driver](http://chromedriver.storage.googleapis.com/index.html)
 
-    - Official download link for Chrome driver: [http://chromedriver.storage.googleapis.com/index.html](http://chromedriver.storage.googleapis.com/index.html)
+    - [IE Driver](http://selenium-release.storage.googleapis.com/index.html)
 
-    - Official download link for IE driver: [http://selenium-release.storage.googleapis.com/index.html](http://selenium-release.storage.googleapis.com/index.html)
+    - You can also find drivers [here](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers).
 
 
 
-Start Testing
+3. Start Demo Project
 -----------------------------------------------------------------------
 
-+ Test Page: ([http://sleepycat.org/static/knitter/KnitterDemo.html](http://sleepycat.org/static/knitter/KnitterDemo.html))
++ [Demo Project Test Script](https://github.com/hww712/Knitter/tree/master/examples/DemoProject))
 
-+ Demo Project: ([https://github.com/hww712/Knitter/tree/master/examples/DemoProject](https://github.com/hww712/Knitter/tree/master/examples/DemoProject))
++ [Demo Project Test Page](http://sleepycat.org/static/knitter/KnitterDemo.html))
 
 
 #### Step 1. Create project folder structure.
@@ -52,8 +52,6 @@ Start Testing
 
 #### Step 2. Add test page module "DemoPage.py" under "page/"
 
-All element class must inherit from "WebElement".
-
 
     # -*- coding: utf-8 -*-
 
@@ -74,10 +72,11 @@ All element class must inherit from "WebElement".
             (by, value) = (By.ID, 'female')
 
 
++ All element class must inherit from "WebElement".
+
+
 
 #### Step 3. Add test case module "demo_module.py" under "testcase/"
-
-Just import the page you need, and use it directly.
 
 
     # -*- coding: utf-8 -*-
@@ -105,6 +104,9 @@ Just import the page you need, and use it directly.
         DemoPage.Result.VerifyInnerHTMLContains("Hobbies: Music Travel")
 
 
++ Just import the page you need, and use it directly.
+
+
 #### Step 4. Configure "conf.ini"
 
     DRIVER_CHROME: where the Chrome driver locates.
@@ -120,10 +122,7 @@ Just import the page you need, and use it directly.
     
     from knitter import executer
 
-    # Will run all test cases of module "testcase/demo_module.py".
-    executer.run_module("demo_module") 
-    
-    # Run specified test case of test module.
+    # Run specified test case of test module "testcase/demo_module.py".
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
 run "runner.py", check result in "result/" folder.
