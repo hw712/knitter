@@ -32,9 +32,8 @@ Tutorial
 + [Demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
 
-#### Step 1. Create project folder structure.
+#### Step 1. Create Project Folder Structure.
 
-    test project folder structure:
 
     DemoProject/
                data/...   (Excel Data Files, such as "TestData.xlsx")
@@ -50,7 +49,7 @@ Tutorial
                runner.py
 
 
-#### Step 2. Add test page module "DemoPage.py" under "page/"
+#### Step 2. Add Test Page Module "DemoPage.py" under "page/"
 
 
     # -*- coding: utf-8 -*-
@@ -78,7 +77,7 @@ Tutorial
 
 
 
-#### Step 3. Add test case module "demo_module.py" under "testcase/"
+#### Step 3. Add Test Case Module "demo_module.py" under "testcase/"
 
 
     # -*- coding: utf-8 -*-
