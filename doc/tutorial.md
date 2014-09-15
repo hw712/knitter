@@ -27,7 +27,7 @@ Tutorial
 3. Start Testing
 -----------------------------------------------------------------------
 
-+ [demo project test script](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
++ [demo project](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
 
 + [demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
@@ -123,16 +123,20 @@ Tutorial
     - 
 
 
-#### Step 5. Configure "runner.py", and run it.
+#### Step 5. Configure "runner.py".
 
     # -*- coding: utf-8 -*-
     
     from knitter import executer
 
-    # Run specified test case of test module "testcase/demo_module.py".
+    ### Run specified test case of test module "testcase/demo_module.py". ###
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
-+ **Run "runner.py", check result in "result/" folder.**
+
+
+
+#### Step 6. Run "runner.py", check result in "result/" folder.
+
 
 
 
