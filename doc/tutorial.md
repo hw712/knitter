@@ -120,8 +120,6 @@ Tutorial
 
 
 
-    - 
-
 
 #### Step 5. Configure "runner.py".
 
@@ -129,7 +127,7 @@ Tutorial
     
     from knitter import executer
 
-    ### Run specified test case of test module "testcase/demo_module.py". ###
+    ### Run specified test case of "testcase/demo_module.py". ###
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
 
