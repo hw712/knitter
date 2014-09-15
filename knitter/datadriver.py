@@ -23,7 +23,7 @@ class ExcelSheet:
         for colx in range(0, self.ncols()):
             if self.cellxy(0, colx) == col_name:
                 log.step_normal("ExcelSheet.cellx(%s, %s)=[%s]" % (rowx, col_name, self.cellxy(rowx, colx)))
-                return self.cellxy(rowx, colx)
+                return str(self.cellxy(rowx, colx))
     
 
 

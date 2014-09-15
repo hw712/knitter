@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name                    = 'knitter',
-    version                 = '0.3.0',
+    version                 = '0.3.1',
     
     author                  = 'Hongwei Wang',
     author_email            = 'hww712@gmail.com',

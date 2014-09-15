@@ -495,7 +495,7 @@ class WebElement:
     @classmethod
     def _wait(cls):
         t = 0
-        while t < 60:
+        while t < 30:
             t = t + 1
             
             try:
