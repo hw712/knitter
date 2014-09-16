@@ -1,13 +1,13 @@
 Tutorial
 =======================================================================
 
-1. installation
+1. Installation
 -----------------------------------------------------------------------
 
     pip install knitter
 
 
-2. preconditions
+2. Preconditions
 -----------------------------------------------------------------------
 
 + Python 2.7
@@ -18,13 +18,13 @@ Tutorial
 
     - [chrome driver](http://chromedriver.storage.googleapis.com/index.html)
 
-    - [IE driver](http://selenium-release.storage.googleapis.com/index.html)
+    - [Ie driver](http://selenium-release.storage.googleapis.com/index.html)
 
     - You can also find both driver files [here](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers).
 
 
 
-3. test demo project
+3. Test demo project
 -----------------------------------------------------------------------
 
 + [demo project](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
