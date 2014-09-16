@@ -32,7 +32,7 @@ Tutorial
 + [demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
 
-#### step (1). create project folder structure.
+#### step (1). Create project folder structure.
 
 
     DemoProject/
@@ -50,7 +50,7 @@ Tutorial
                runner.py
 
 
-#### step (2). add "page/DemoPage.py" for elements of test page.
+#### step (2). Add page/DemoPage.py
 
 
     # -*- coding: utf-8 -*-
@@ -97,7 +97,7 @@ Tutorial
 
 
 
-#### step (3). add "testcase/demo_module.py" for test cases.
+#### step (3). Add testcase/demo_module.py
 
 
     # -*- coding: utf-8 -*-
@@ -128,7 +128,7 @@ Tutorial
 
 
 
-#### step (4). configure "conf.ini"
+#### step (4). Configure conf.ini
     
     DRIVER_CHROME       = E:\Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
     DRIVER_IE           = E:\Knitter\examples\DemoProject\drivers\IEDriverServer_Win32_2.42.0\IEDriverServer.exe
@@ -143,7 +143,7 @@ Tutorial
 
 
 
-#### step (5). configure "runner.py"
+#### step (5). Configure runner.py
 
     # -*- coding: utf-8 -*-
     
@@ -155,7 +155,7 @@ Tutorial
 
 
 
-#### step (6). run "runner.py"
+#### step (6). Run runner.py
 
     result/
           summary.log     # summary result
