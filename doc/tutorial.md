@@ -159,7 +159,6 @@ Tutorial
 #### Step 6. Run "runner.py"
 
     result/
-    
           summary.log     # summary result
           result.xls      # summary result in excel.
           screenshort/
