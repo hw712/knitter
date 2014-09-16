@@ -150,7 +150,7 @@ Tutorial
     
     from knitter import executer
 
-    # Run specified test case of "testcase/demo_module.py"
+    # Run specified test case of testcase/demo_module.py
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
 
@@ -161,12 +161,12 @@ Tutorial
     result/
     
           summary.log     # summary result
-        
           result.xls      # summary result in excel.
+          screenshort/
+                     ...  # screen shorts of error test cases.
         
-          screenshort/    # screen short of error test cases.
-        
-          testcase/       # detailed log of each test case
+          testcase/
+                  ...     # detailed log of each test case
     
 
 
