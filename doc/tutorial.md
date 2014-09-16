@@ -49,7 +49,7 @@ Tutorial
                runner.py
 
 
-#### Step 2. Add Test Page Module "DemoPage.py" under "page/"
+#### Step 2. Add "page/DemoPage.py" for Demo Page Elements.
 
 
     # -*- coding: utf-8 -*-
@@ -59,25 +59,51 @@ Tutorial
     from selenium.webdriver.common.by import By
     
 
-    class SubmitButton(WebElement):
-        (by, value) = (By.XPATH, '//button[@onclick="do_submit();"]')
-
-    class ResetButton(WebElement):
-        (by, value) = (By.XPATH, '//button[@onclick="do_reset();"]')
-
+    class Name:
+        class Title(WebElement):
+            (by, value) = (By.ID, 'title')
+        
+        class Name(WebElement):
+            (by, value) = (By.ID, 'name')
+    
+    
     class Gender:
         class Male(WebElement):
             (by, value) = (By.ID, 'male')
-
+        
         class Female(WebElement):
             (by, value) = (By.ID, 'female')
+    
+    
+    
+    class Hobby:
+        class Music(WebElement):
+            (by, value) = (By.ID, 'music')
+        
+        class Sport(WebElement):
+            (by, value) = (By.ID, 'sport')
+        
+        class Travel(WebElement):
+            (by, value) = (By.ID, 'travel')
+    
+    
+    
+    class SubmitButton(WebElement):
+        (by, value) = (By.XPATH, '//button[@onclick="do_submit();"]')
+    
+    class ResetButton(WebElement):
+        (by, value) = (By.XPATH, '//button[@onclick="do_reset();"]')
+    
+    
+    class Result(WebElement):
+        (by, value) = (By.ID, 'result')
 
 
 
 
 
 
-#### Step 3. Add Test Case Module "demo_module.py" under "testcase/"
+#### Step 3. Add "testcase/demo_module.py" for Test Cases.
 
 
     # -*- coding: utf-8 -*-
@@ -121,7 +147,7 @@ Tutorial
 
 
 
-#### Step 5. Configure "runner.py".
+#### Step 5. Configure "runner.py"
 
     # -*- coding: utf-8 -*-
     
@@ -133,11 +159,18 @@ Tutorial
 
 
 
-#### Step 6. Run "runner.py", check result in "result/" folder.
+#### Step 6. Run "runner.py"
 
-
-
-
+    result/
+    
+          summary.log     # summary result
+        
+          result.xls      # summary result in excel.
+        
+          screenshort/    # screen short of error test cases.
+        
+          testcase/       # detailed log of each test case
+    
 
 
 
