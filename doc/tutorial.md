@@ -58,7 +58,6 @@ Tutorial
     from knitter.webelement import WebElement
     from selenium.webdriver.common.by import By
     
-
     class Name:
         class Title(WebElement):
             (by, value) = (By.ID, 'title')
@@ -66,15 +65,12 @@ Tutorial
         class Name(WebElement):
             (by, value) = (By.ID, 'name')
     
-    
     class Gender:
         class Male(WebElement):
             (by, value) = (By.ID, 'male')
         
         class Female(WebElement):
             (by, value) = (By.ID, 'female')
-    
-    
     
     class Hobby:
         class Music(WebElement):
@@ -85,7 +81,6 @@ Tutorial
         
         class Travel(WebElement):
             (by, value) = (By.ID, 'travel')
-    
     
     
     class SubmitButton(WebElement):
@@ -136,14 +131,16 @@ Tutorial
 
 #### Step 4. Configure "conf.ini"
     
-    DRIVER_CHROME       = E:\WorkSpace\GitHub-Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
-    DRIVER_IE           = E:\WorkSpace\GitHub-Knitter\examples\DemoProject\drivers\IEDriverServer_Win32_2.42.0\IEDriverServer.exe
+    DRIVER_CHROME       = E:Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
+    DRIVER_IE           = E:\Knitter\examples\DemoProject\drivers\IEDriverServer_Win32_2.42.0\IEDriverServer.exe
     
     TESTING_URL         = http://sleepycat.org/static/knitter/KnitterDemo.html
     
-    ### Multi browsers divided by "|", will run test case one time on each browser. ###
+    
+    # divided by "|", run test case one time for each browser.
     TESTING_BROWSERS    = Chrome|IE|Firefox
 
+    
 
 
 
@@ -153,7 +150,7 @@ Tutorial
     
     from knitter import executer
 
-    ### Run specified test case of "testcase/demo_module.py". ###
+    # Run specified test case of "testcase/demo_module.py"
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
 
