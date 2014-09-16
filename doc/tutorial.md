@@ -10,13 +10,13 @@ Tutorial
 2. Preconditions
 -----------------------------------------------------------------------
 
-+ Python 2.7
++ python 2.7
 
-+ Depends on "selenium", "xlrd", "xlwt" packages, which will be installed while installing knitter.
++ depends on "selenium", "xlrd", "xlwt" packages, which will be installed while installing knitter.
 
-+ Drivers
++ drivers
 
-    - [Chrome driver](http://chromedriver.storage.googleapis.com/index.html)
+    - [chrome driver](http://chromedriver.storage.googleapis.com/index.html)
 
     - [IE driver](http://selenium-release.storage.googleapis.com/index.html)
 
@@ -24,7 +24,7 @@ Tutorial
 
 
 
-3. Start Testing
+3. Test Demo Project
 -----------------------------------------------------------------------
 
 + [demo project](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
@@ -32,24 +32,25 @@ Tutorial
 + [demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
 
-#### Step 1. Create Project Folder Structure.
+#### Step 1. create project folder structure.
 
 
     DemoProject/
-               data/...   (Excel Data Files, such as "TestData.xlsx")
+               data/
+                    ...               # excel data files, such as "TestData.xlsx"
                page/
                      __init__.py
-                     DemoPage.py
+                     DemoPage.py      # elements of test page
                      ...
                testcase/
                      __init__.py
-                     demo_module.py
+                     demo_module.py   # test cases
                      ...
                conf.ini
                runner.py
 
 
-#### Step 2. Add "page/DemoPage.py" for Demo Page Elements.
+#### Step 2. add "page/DemoPage.py" for elements of test page.
 
 
     # -*- coding: utf-8 -*-
@@ -96,9 +97,7 @@ Tutorial
 
 
 
-
-
-#### Step 3. Add "testcase/demo_module.py" for Test Cases.
+#### Step 3. add "testcase/demo_module.py" for test cases.
 
 
     # -*- coding: utf-8 -*-
@@ -129,7 +128,7 @@ Tutorial
 
 
 
-#### Step 4. Configure "conf.ini"
+#### Step 4. configure "conf.ini"
     
     DRIVER_CHROME       = E:\Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
     DRIVER_IE           = E:\Knitter\examples\DemoProject\drivers\IEDriverServer_Win32_2.42.0\IEDriverServer.exe
@@ -144,7 +143,7 @@ Tutorial
 
 
 
-#### Step 5. Configure "runner.py"
+#### Step 5. configure "runner.py"
 
     # -*- coding: utf-8 -*-
     
@@ -156,7 +155,7 @@ Tutorial
 
 
 
-#### Step 6. Run "runner.py"
+#### Step 6. run "runner.py"
 
     result/
           summary.log     # summary result
