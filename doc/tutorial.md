@@ -1,16 +1,16 @@
 Tutorial
 =======================================================================
 
-1. Installation
+1. installation
 -----------------------------------------------------------------------
 
     pip install knitter
 
 
-2. Preconditions
+2. preconditions
 -----------------------------------------------------------------------
 
-+ python 2.7
++ Python 2.7
 
 + depends on "selenium", "xlrd", "xlwt" packages, which will be installed while installing knitter.
 
@@ -24,7 +24,7 @@ Tutorial
 
 
 
-3. Test Demo Project
+3. test demo project
 -----------------------------------------------------------------------
 
 + [demo project](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
@@ -32,7 +32,7 @@ Tutorial
 + [demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
 
-#### Step 1. create project folder structure.
+#### step (1). create project folder structure.
 
 
     DemoProject/
@@ -50,7 +50,7 @@ Tutorial
                runner.py
 
 
-#### Step 2. add "page/DemoPage.py" for elements of test page.
+#### step (2). add "page/DemoPage.py" for elements of test page.
 
 
     # -*- coding: utf-8 -*-
@@ -97,7 +97,7 @@ Tutorial
 
 
 
-#### Step 3. add "testcase/demo_module.py" for test cases.
+#### step (3). add "testcase/demo_module.py" for test cases.
 
 
     # -*- coding: utf-8 -*-
@@ -128,7 +128,7 @@ Tutorial
 
 
 
-#### Step 4. configure "conf.ini"
+#### step (4). configure "conf.ini"
     
     DRIVER_CHROME       = E:\Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
     DRIVER_IE           = E:\Knitter\examples\DemoProject\drivers\IEDriverServer_Win32_2.42.0\IEDriverServer.exe
@@ -143,7 +143,7 @@ Tutorial
 
 
 
-#### Step 5. configure "runner.py"
+#### step (5). configure "runner.py"
 
     # -*- coding: utf-8 -*-
     
@@ -155,7 +155,7 @@ Tutorial
 
 
 
-#### Step 6. run "runner.py"
+#### step (6). run "runner.py"
 
     result/
           summary.log     # summary result
