@@ -16,7 +16,7 @@ Tutorial
 
 + drivers
 
-    - [chrome driver](http://chromedriver.storage.googleapis.com/index.html)
+    - [Chrome driver](http://chromedriver.storage.googleapis.com/index.html)
 
     - [Ie driver](http://selenium-release.storage.googleapis.com/index.html)
 
