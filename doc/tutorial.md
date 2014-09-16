@@ -131,7 +131,7 @@ Tutorial
 
 #### Step 4. Configure "conf.ini"
     
-    DRIVER_CHROME       = E:Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
+    DRIVER_CHROME       = E:\Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
     DRIVER_IE           = E:\Knitter\examples\DemoProject\drivers\IEDriverServer_Win32_2.42.0\IEDriverServer.exe
     
     TESTING_URL         = http://sleepycat.org/static/knitter/KnitterDemo.html
