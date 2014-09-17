@@ -1,9 +1,9 @@
 Knitter
 --------------------------------------------
 
-Python Web Automation Test Framework with Selenium WebDriver
-
 [http://hww712.github.io/knitter/](http://hww712.github.io/knitter/)
+
+Python Web Automation Test Framework with Selenium WebDriver
 
 
 Documents
