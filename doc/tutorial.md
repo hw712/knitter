@@ -1,9 +1,5 @@
 
-
-        article {
-            font-family: Courier New;
-        }
- 
+<style>article {font-family: Courier New;}</style>
 
 Tutorial
 =======================================================================
