@@ -1,4 +1,3 @@
-
 Tutorial
 =======================================================================
 
@@ -13,24 +12,28 @@ Tutorial
 
 + Python 2.7
 
-+ depends on "selenium", "xlrd", "xlwt" packages, which will be installed while installing knitter.
++ Depends on "selenium", "xlrd", "xlwt" packages, which will be installed while installing knitter.
 
-+ drivers
++ Drivers
 
-    - [Chrome driver](http://chromedriver.storage.googleapis.com/index.html)
+    - [Chrome Driver](http://chromedriver.storage.googleapis.com/index.html)
 
-    - [IE driver](http://selenium-release.storage.googleapis.com/index.html)
+    - [IE Driver](http://selenium-release.storage.googleapis.com/index.html)
 
     - You can also find both driver files [here](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers).
 
 
 
-3. Test demo project
+3. Demo project
 -----------------------------------------------------------------------
 
-+ [Demo project](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
++ Demo project source code:
 
-+ [Demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
+    - [https://github.com/hww712/Knitter/tree/master/examples/DemoProject](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
+
++ Demo project test page:
+
+    - [http://sleepycat.org/static/knitter/KnitterDemo.html](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
 
 #### Step 1. Create project folder structure.
@@ -125,7 +128,7 @@ Tutorial
         DemoPage.Result.VerifyInnerHTMLContains("Henry.Wang")
         DemoPage.Result.VerifyInnerHTMLContains("Gender: male")
         DemoPage.Result.VerifyInnerHTMLContains("Hobbies: Music Travel")
-
+        
 
 
 
@@ -149,7 +152,7 @@ Tutorial
     # -*- coding: utf-8 -*-
     
     from knitter import executer
-    
+
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
 
