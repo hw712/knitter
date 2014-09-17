@@ -2,7 +2,7 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException
 
 import time
 import env, log
@@ -39,18 +39,46 @@ class WebBrowser:
     
     @classmethod
     def AlertAccept(cls):
-        log.step_normal("AlertAccept.")
-        env.BROWSER.switch_to_alert().accept()
+        log.step_normal("AlertAccept()")
         
-        env.BROWSER.switch_to_default_content()
+        i = 0
+        while(i < 60):
+            try:
+                log.step_normal("switch_to_alert()")
+                alert = env.BROWSER.switch_to_alert()
+                alert.accept()
+                break
+            except NoAlertPresentException:
+                log.step_normal("Alert Not Found. Wait 3 Seconds then Try Again!")
+                time.sleep(3)
+        
+        try:
+            log.step_normal("switch_to_default_content()")
+            env.BROWSER.switch_to_default_content()
+        except:
+            pass
     
     
     @classmethod
     def AlertDismiss(cls):
-        log.step_normal("AlertDismiss.")
-        env.BROWSER.switch_to_alert().dismiss()
+        log.step_normal("AlertDismiss()")
         
-        env.BROWSER.switch_to_default_content()
+        i = 0
+        while(i < 60):
+            try:
+                log.step_normal("switch_to_alert()")
+                alert = env.BROWSER.switch_to_alert()
+                alert.dismiss()
+                break
+            except NoAlertPresentException:
+                log.step_normal("Alert Not Found. Wait 3 Seconds then Try Again!")
+                time.sleep(3)
+        
+        try:
+            log.step_normal("switch_to_default_content()")
+            env.BROWSER.switch_to_default_content()
+        except:
+            pass
     
     
     @classmethod
@@ -71,6 +99,43 @@ class WebBrowser:
         else:
             log.step_fail("fail")
         env.BROWSER.switch_to_default_content()
+    
+    
+    @classmethod
+    def SwitchToNewPopWindow(cls):
+        log.step_normal("SwitchToNewPopWindow()")
+        
+        t = 0
+        while(t < 10):
+            t = t + 1
+            time.sleep(3)
+            
+            if len(env.BROWSER.window_handles) < 2:
+                log.step_normal("Pop Window Not Found. Wait 3 Seconds then Try Again!")
+            else:
+                break
+        
+        env.BROWSER.switch_to.window(env.BROWSER.window_handles[-1])
+        
+        log.step_normal("Switch To The New Window of : %s" % str(env.BROWSER.window_handles))
+    
+    
+    @classmethod
+    def SwitchToDefaultWindow(cls):
+        log.step_normal("SwitchToDefaultWindow()")
+        
+        log.step_normal("Switch To The Default Window of: %s" % str(env.BROWSER.window_handles))
+        
+        try:
+            env.BROWSER.switch_to.window(env.BROWSER.window_handles[0])
+        except:
+            pass
+
+
+
+
+
+
 
 
 
@@ -83,6 +148,12 @@ class WebElement:
     
     @classmethod
     def Set(cls, value):
+        if value == "":
+            return
+        
+        if value == "SET_EMPTY":
+            value = ""
+        
         log.step_normal(u"Element [%s]: Set Value [%s]." % (cls.__name__, value))
         
         cls._wait()
@@ -144,6 +215,7 @@ class WebElement:
         '''
         input value without clear existed values
         '''
+        if value == "": return
         
         log.step_normal(u"Element [%s]: TypeIn Value [%s]." % (cls.__name__, value))
         
@@ -248,7 +320,7 @@ class WebElement:
     def IsExist(cls):
         log.step_normal("Element [%s]: IsExist?" % (cls.__name__))
         
-        time.sleep(5)
+        time.sleep(2)
         
         elements = env.BROWSER.find_elements(cls.by, cls.value)
         log.step_normal("Element [%s]: IsExist? Count = [%s]" % (cls.__name__, len(elements)))
@@ -288,6 +360,8 @@ class WebElement:
     
     @classmethod
     def VerifyInnerHTMLContains(cls, contain_content):
+        if contain_content == "": return
+        
         log.step_normal("Element [%s]: VerifyInnerHTMLContains [%s]." % (cls.__name__, contain_content))
         
         cls._wait()
@@ -304,6 +378,8 @@ class WebElement:
     
     @classmethod
     def VerifyAttribute(cls, attr, contain_content):
+        if contain_content == "": return
+        
         log.step_normal("Element [%s]: Verify Attribute [%s] == [%s]." % (cls.__name__, attr, contain_content))
         
         cls._wait()
@@ -320,6 +396,8 @@ class WebElement:
     
     @classmethod
     def VerifyAttributeContains(cls, attr, contain_content):
+        if contain_content == "": return
+        
         log.step_normal("Element [%s]: Verify [%s] Contains [%s]." % (cls.__name__, attr, contain_content))
         
         cls._wait()
@@ -363,6 +441,49 @@ class WebElement:
         
         cls._clearup()
     
+    
+    @classmethod
+    def EnhancedClick(cls):
+        '''
+        Description:
+            Sometimes, one click on the element doesn't work. So wait more time, then click again and again.
+        Risk:
+            It may operate more than one click operations.
+        '''
+        log.step_normal("Element [%s]: Doing EnhancedClick()" % (cls.__name__))
+        
+        cls._wait()
+        
+        i = 0
+        while(i < 3):
+            elements = env.BROWSER.find_elements(cls.by, cls.value)
+            
+            action = webdriver.ActionChains(env.BROWSER)
+            action.move_to_element(elements[cls.index])
+            action.perform()
+            
+            time.sleep(2)
+            i = i + 1
+            
+        
+        
+        elements = env.BROWSER.find_elements(cls.by, cls.value)
+        
+        action = webdriver.ActionChains(env.BROWSER)
+        action.click(elements[cls.index])
+        action.perform()
+        
+        try:
+            elements = env.BROWSER.find_elements(cls.by, cls.value)
+            
+            if len(elements) > 0:
+                action = webdriver.ActionChains(env.BROWSER)
+                action.double_click(elements[cls.index])
+                action.perform()
+        except:
+            pass
+        
+        cls._clearup()
     
     @classmethod
     def MouseOver(cls):
@@ -410,7 +531,11 @@ class WebElement:
     
     @classmethod
     def SelectByOrder(cls, order):
+        if order == "": return
+        
         log.step_normal("Element [%s]: Do Select by Order [%s]" % (cls.__name__, order))
+        
+        order = int(order)
         
         cls._wait()
         elements = env.BROWSER.find_elements(cls.by, cls.value)
@@ -447,6 +572,36 @@ class WebElement:
                 log.step_fail("Order = [%s], Value Error." % order)
                 
                 
+        #### select ################
+        if elements[cls.index].tag_name == "select":
+            options = elements[cls.index].find_elements_by_tag_name('option')
+            
+            if order > 0:
+                
+                ### Wait and try more times if NO item found. ###
+                t = 0
+                while (len(options) == 0):
+                    options = elements[cls.index].find_elements_by_tag_name('option')
+                    time.sleep(3)
+                    t = t + 1
+                    log.step_normal("Element [%s]: Wait 3 Seconds for [option]" % cls.__name__)
+                    
+                    if t == 8 and len(lis) == 0:
+                        log.step_fail("Element [%s]: options Count = [%s]." % (cls.__name__, len(options)))
+                        return
+                
+                
+                log.step_normal("Element [%s]: options Count = [%s]." % (cls.__name__, len(options)))
+                
+                if (order > len(options)):
+                    log.step_normal("Element [%s]: Not so many options. [%s]" % (cls.__name__, len(options)))
+                else:
+                    log.step_normal("Element [%s]: Do Click [%s]" % (cls.__name__, order))
+                    action = webdriver.ActionChains(env.BROWSER)
+                    action.click(options[order-1])
+                    action.perform()
+            else:
+                log.step_fail("Order = [%s], Value Error." % order)
         
         
         cls._clearup()
@@ -454,6 +609,8 @@ class WebElement:
     
     @classmethod
     def Select(cls, value):
+        if value == "": return
+        
         log.step_normal("Element [%s]: Do Select [%s]." % (cls.__name__, value))
         
         cls._wait()
@@ -491,11 +648,10 @@ class WebElement:
     
     
     
-    
     @classmethod
     def _wait(cls):
         t = 0
-        while t < 30:
+        while t < 60:
             t = t + 1
             
             try:
@@ -503,12 +659,19 @@ class WebElement:
             except NoSuchElementException:
                 log.step_normal("Element [%s]: NoSuchElementException." % cls.__name__)
                 elements = []
+                
+                log.step_normal(u"Element [%s]: Browser Refresh" % (cls.__name__,))
+                env.BROWSER.refresh()
             
             if len(elements) == 0:
                 time.sleep(3)
-                log.step_normal("Element [%s]: Wait 3 Seconds, By [%s]" % (cls.__name__, cls.value))
+                log.step_normal("Element [%s]: Wait 3 Seconds, By [%s :: %s :: %s]" % (cls.__name__, cls.by, cls.value, cls.index))
             else:
+                if len(elements) > 1:
+                    log.step_normal("Element [%s]: There are [%s] Elements!" % (cls.__name__, len(elements)))
+                
                 break
+        
         
         if len(elements) < cls.index + 1:
             log.step_fail("Element [%s]: Element Index Issue! There are [%s] Elements! Index=[%s]" % (cls.__name__, len(elements), cls.index))
@@ -518,7 +681,7 @@ class WebElement:
     def _wait_for_disappearing(cls):
         
         t = 0
-        while t < 15:
+        while t < 60:
             t = t + 1
             
             try:
@@ -526,12 +689,17 @@ class WebElement:
             except NoSuchElementException:
                 log.step_normal("Element [%s]: NoSuchElementException." % cls.__name__)
                 elements = []
+                
+                log.step_normal(u"Element [%s]: Browser Refresh" % (cls.__name__,))
+                env.BROWSER.refresh()
             
             if len(elements) == 0:
                 return True
             else:
                 time.sleep(3)
                 log.step_normal("Element [%s]: WairForDisappearing... Found [%s] Element. Tried [%s] Times." % (cls.__name__, len(elements), t))
+        
+        time.sleep(3)
         
         return False
     
@@ -540,7 +708,7 @@ class WebElement:
     def _wait_for_appearing(cls):
         
         t = 0
-        while t < 15:
+        while t < 60:
             t = t + 1
             
             try:
@@ -548,6 +716,9 @@ class WebElement:
             except NoSuchElementException:
                 log.step_normal("Element [%s]: NoSuchElementException." % cls.__name__)
                 elements = []
+                
+                log.step_normal(u"Element [%s]: Browser Refresh" % (cls.__name__,))
+                env.BROWSER.refresh()
             
             if len(elements) == 0:
                 time.sleep(3)
@@ -555,12 +726,14 @@ class WebElement:
             else:
                 log.step_normal("Element [%s]: Found [%s] Element. Tried [%s] Times." % (cls.__name__, len(elements), t))
                 break
+        
+        time.sleep(3)
     
     
     @classmethod
     def _clearup(cls):
         if cls.index != 0:
-            log.step_normal("Element [%s]: Last Element Index = [%s]." % (cls.__name__, cls.index))
+            log.step_normal("Element [%s]: The Operation Element Index = [%s]." % (cls.__name__, cls.index))
         
         cls.index = 0
 

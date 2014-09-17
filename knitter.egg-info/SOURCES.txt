@@ -7,6 +7,7 @@ knitter/env.py
 knitter/executer.py
 knitter/log.py
 knitter/webelement.py
+knitter/wingui.py
 knitter.egg-info/PKG-INFO
 knitter.egg-info/SOURCES.txt
 knitter.egg-info/dependency_links.txt
