@@ -149,8 +149,7 @@ Tutorial
     # -*- coding: utf-8 -*-
     
     from knitter import executer
-
-    # Run specified test case of testcase/demo_module.py
+    
     executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
 
 
