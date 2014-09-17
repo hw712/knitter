@@ -1,6 +1,4 @@
 
-<style>article {font-family: Courier New;}</style>
-
 Tutorial
 =======================================================================
 
@@ -21,7 +19,7 @@ Tutorial
 
     - [Chrome driver](http://chromedriver.storage.googleapis.com/index.html)
 
-    - [Ie driver](http://selenium-release.storage.googleapis.com/index.html)
+    - [IE driver](http://selenium-release.storage.googleapis.com/index.html)
 
     - You can also find both driver files [here](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers).
 
@@ -30,9 +28,9 @@ Tutorial
 3. Test demo project
 -----------------------------------------------------------------------
 
-+ [demo project](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
++ [Demo project](https://github.com/hww712/Knitter/tree/master/examples/DemoProject)
 
-+ [demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
++ [Demo project test page](http://sleepycat.org/static/knitter/KnitterDemo.html)
 
 
 #### Step 1. Create project folder structure.
