@@ -1,13 +1,13 @@
 Knitter
 --------------------------------------------
 
-[http://hww712.github.io/knitter/](http://hww712.github.io/knitter/)
-
 Python Web Automation Test Framework with Selenium WebDriver
 
 
 Documents
 --------------------------------------------
+
++ [http://hww712.github.io/knitter/](http://hww712.github.io/knitter/)
 
 + [doc/tutorial.md](https://github.com/hww712/Knitter/blob/master/doc/tutorial.md)
 
