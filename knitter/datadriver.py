@@ -20,6 +20,7 @@ class ExcelSheet:
         '''
         Description:
             If the cell value is number, 1234 will get as 1234.0, so fix this issue.
+        
         Reference:
             http://stackoverflow.com/questions/2739989/reading-numeric-excel-data-as-text-using-xlrd-in-python
             http://www.lexicon.net/sjmachin/xlrd.html  (Search for "ctype")
@@ -33,11 +34,14 @@ class ExcelSheet:
                 XL_CELL_BOOLEAN  4           int; 1 means TRUE, 0 means FALSE
                 ......
         '''
+        
         cell_value = self.sheet.cell(rowx, colx).value
+        
         if self.sheet.cell(rowx, colx).ctype in (2,3) and int(cell_value) == cell_value:
             cell_value = int(cell_value)
         
         return str(cell_value)
+    
     
     def cell(self, rowx, col_name):
         for colx in range(0, self.ncols()):

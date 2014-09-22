@@ -3,6 +3,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 import types, importlib, time, inspect, os
 import log, env, common
@@ -11,14 +13,13 @@ import log, env, common
 
 def launch_browser():
     
-    if env.RUNNING_BROWSER == "Firefox":
+    if env.RUNNING_BROWSER.upper() == "FIREFOX":
         #os.popen("TASKKILL /F /IM firefox.exe")
         
-        binary_path = common.getconf("FIREFOX_BINARY_PATH")
-        
-        from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
         fp = FirefoxProfile()
         fp.native_events_enabled = False
+        
+        binary_path = common.get_value_from_conf("FIREFOX_BINARY_PATH")
         
         if binary_path == "":
             env.BROWSER = webdriver.Firefox(firefox_profile=fp)
@@ -27,12 +28,12 @@ def launch_browser():
             env.BROWSER = webdriver.Firefox(firefox_profile=fp, firefox_binary=fb)
     
     
-    elif env.RUNNING_BROWSER == "Chrome":
+    elif env.RUNNING_BROWSER.upper() == "CHROME":
         #os.popen("TASKKILL /F /IM chrome.exe")
         os.popen("TASKKILL /F /IM chromedriver.exe")
         
-        binary_path  = common.getconf("CHROME_BINARY_PATH")
-        chromedriver = common.getconf("DRIVER_CHROME")
+        binary_path  = common.get_value_from_conf("CHROME_BINARY_PATH")
+        chromedriver = common.get_value_from_conf("DRIVER_CHROME")
         
         if binary_path == "":
             os.environ["webdriver.chrome.driver"] = chromedriver
@@ -45,18 +46,19 @@ def launch_browser():
             env.BROWSER = webdriver.Chrome(executable_path=chromedriver, chrome_options=opts)
     
     
-    elif env.RUNNING_BROWSER == "IE":
+    elif env.RUNNING_BROWSER.upper() == "IE":
         #os.popen("TASKKILL /F /IM iexplore.exe")
         os.popen("TASKKILL /F /IM IEDriverServer.exe")
         
-        from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
         dc = DesiredCapabilities.INTERNETEXPLORER.copy()
         
         dc['acceptSslCerts'] = True
         dc['nativeEvents']   = True
         
-        iedriver = common.getconf("DRIVER_IE")
+        iedriver = common.get_value_from_conf("DRIVER_IE")
+        
         os.environ["webdriver.ie.driver"] = iedriver
+        
         env.BROWSER = webdriver.Ie(executable_path=iedriver, capabilities=dc)
     
     
@@ -64,7 +66,7 @@ def launch_browser():
         return False
     
     
-    env.TEST_URL = common.getconf("TESTING_URL")
+    env.TEST_URL = common.get_value_from_conf("TESTING_URL")
     
     
     env.BROWSER.get(env.TEST_URL)
@@ -94,7 +96,7 @@ def run_module(module_name):
            if isinstance(testmodule.__dict__.get(a), types.FunctionType)]
     
     env.PROJECT_PATH = inspect.stack()[1][1].rsplit("\\", 1)[0]
-    env.TESTING_BROWSERS = common.getconf("TESTING_BROWSERS")
+    env.TESTING_BROWSERS = common.get_value_from_conf("TESTING_BROWSERS")
     
     
     for testcase in testcases:
@@ -145,7 +147,7 @@ def run_case(module_name, case_name):
            if isinstance(testmodule.__dict__.get(a), types.FunctionType)]
     
     env.PROJECT_PATH     = inspect.stack()[1][1].rsplit("\\", 1)[0]
-    env.TESTING_BROWSERS = common.getconf("TESTING_BROWSERS")
+    env.TESTING_BROWSERS = common.get_value_from_conf("TESTING_BROWSERS")
     
     if not case_name in testcases:
         return

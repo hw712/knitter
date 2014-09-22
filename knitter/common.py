@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import datetime, os, sys, xlrd, inspect
+import datetime, os, sys, inspect
 
-import env, log
+import env
 
 
 def stamp_date():
@@ -81,97 +81,44 @@ def force_delete_file(file_path):
         return file_path
 
 
+
 def mkdirs(dir_path):
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
 
 
 
-def setconf(arg, value):
+def get_value_from_conf(key):
     conf_file = u"%s\\conf.ini" % env.PROJECT_PATH
-    data_all  = ""
-    arg_exist = False
     
-    if os.path.exists(conf_file):
-        if os.path.isfile(conf_file):
-            try:
-                with open(conf_file, 'r') as f:
-                    while True:
-                        data = f.readline()
-                        
-                        if not data:
-                            break
-                        
-                        if data.split('=')[0] == arg:
-                            arg_exist = True
-                            data = u"%s=%s\n" % (data.split('=')[0], value)
-                        else:
-                            data = u"%s=%s\n" % (data.split('=')[0], data.split('=')[1].splitlines()[0])
-                        
-                        data_all = u"%s%s" % (data_all, data)
-                
-                if arg_exist == False:
-                    data_all = u"%s%s=%s\n" % (data_all, arg, value)
-            
-            except:
-                log.handle_error()
-        else:
-            data_all = u"%s%s=%s\n" % (data_all, arg, value)
-    else:
-        data_all = u"%s%s=%s\n" % (data_all, arg, value)
+    if not os.path.exists(conf_file):
+        return ""
+    
+    if not os.path.isfile(conf_file):
+        return ""
     
     try:
-        with open(conf_file, 'w') as f:
-            f.write(data_all.encode('utf-8'))
-    except:
-        log.handle_error()
-
-
-def getconf(arg):
-    conf_file = u"%s\\conf.ini" % env.PROJECT_PATH
-    
-    if os.path.exists(conf_file):
-        if os.path.isfile(conf_file):
-            try:
-                with open(conf_file, 'r') as f:
-                    while True:
-                        data = f.readline()
-                        
-                        if not data:
-                            break
-                        
-                        if data.split('=')[0].strip() == arg:
-                            return str(data.split('=', 1)[1].splitlines()[0].strip())
+        with open(conf_file, 'r') as f:
+            while True:
+                data = f.readline()
                 
-            except IOError:
-                return ""
-    
-    return ""
+                if not data:
+                    break
+                
+                if len(data.split('=')) < 2:
+                    continue
+                
+                if data.strip()[0] == "#":
+                    continue
+                
+                if data.split('=')[0].strip() == key:
+                    return str(data.split('=', 1)[1].strip())
+    except IOError:
+        return ""
 
 
-def excel_get_nrows(xls_path, sheet_name):
-    excel = xlrd.open_workbook(xls_path)
-    sheet = excel.sheet_by_name(sheet_name)
-    
-    return sheet.nrows
 
 
-def excel_get_value_by_position(xls_path, sheet_name, x, y):
-    excel = xlrd.open_workbook(xls_path)
-    sheet = excel.sheet_by_name(sheet_name)
-    
-    return unicode(sheet.cell(x, y).value)
-
-def excel_get_value_by_row_number(xls_path, sheet_name, x, colname):
-    excel = xlrd.open_workbook(xls_path)
-    sheet = excel.sheet_by_name(sheet_name)
-    
-    collist = []
-    
-    for col in range(0, sheet.ncols):
-        collist.append(excel_get_value_by_position(xls_path, sheet_name, x, col))
-    
-    return excel_get_value_by_position(xls_path, sheet_name, x, collist.index(colname))
 
 
 
