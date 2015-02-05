@@ -6,7 +6,7 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-import types, importlib, time, inspect, os
+import types, importlib, time, inspect, os, sys
 import log, env, common
 
 
@@ -89,13 +89,18 @@ def testcase_windingup():
 
 
 def run_module(module_name):
+    if sys.getdefaultencoding() != 'utf-8':
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
+    
     testmodule = importlib.import_module("testcase.%s" % module_name)
     
     env.MODULE_NAME = module_name.split('.')[-1]
     testcases = [testmodule.__dict__.get(a).__name__ for a in dir(testmodule)
            if isinstance(testmodule.__dict__.get(a), types.FunctionType)]
     
-    env.PROJECT_PATH = inspect.stack()[1][1].rsplit("\\", 1)[0]
+    env.PROJECT_PATH = os.path.dirname(os.path.abspath(inspect.stack()[1][1]))
+    sys.path.append(env.PROJECT_PATH)
     env.TESTING_BROWSERS = common.get_value_from_conf("TESTING_BROWSERS")
     
     
@@ -140,13 +145,18 @@ def run_module(module_name):
 
 
 def run_case(module_name, case_name):
+    if sys.getdefaultencoding() != 'utf-8':
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
+    
     testmodule = importlib.import_module("testcase.%s" % module_name)
     
     env.MODULE_NAME = module_name.split('.')[-1]
     testcases = [testmodule.__dict__.get(a).__name__ for a in dir(testmodule)
            if isinstance(testmodule.__dict__.get(a), types.FunctionType)]
     
-    env.PROJECT_PATH     = inspect.stack()[1][1].rsplit("\\", 1)[0]
+    env.PROJECT_PATH = os.path.dirname(os.path.abspath(inspect.stack()[1][1]))
+    sys.path.append(env.PROJECT_PATH)
     env.TESTING_BROWSERS = common.get_value_from_conf("TESTING_BROWSERS")
     
     if not case_name in testcases:

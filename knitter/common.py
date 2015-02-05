@@ -103,7 +103,7 @@ def get_value_from_conf(key):
                 data = f.readline()
                 
                 if not data:
-                    break
+                    return ""
                 
                 if len(data.split('=')) < 2:
                     continue
