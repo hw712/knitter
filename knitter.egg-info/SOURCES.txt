@@ -5,6 +5,7 @@ knitter/common.py
 knitter/datadriver.py
 knitter/env.py
 knitter/executer.py
+knitter/htmlreport.py
 knitter/log.py
 knitter/webelement.py
 knitter/wingui.py
