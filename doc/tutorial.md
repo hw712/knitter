@@ -142,7 +142,7 @@ Tutorial
 
 
 
-#### Step 5. Setup "run.py"
+#### Step 5. Setup "run.py", and run it.
 
     # -*- coding: utf-8 -*-
     
@@ -155,7 +155,7 @@ Tutorial
 
 
 
-#### Step 6. Check result
+#### Step 6. Check result of HTML report.
 
     result/index.html
     
