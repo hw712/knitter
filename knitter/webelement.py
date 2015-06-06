@@ -1184,46 +1184,6 @@ class WebElement:
     
     
     @compatiblemethod
-    def __wait_for_angular(cls):
-        '''
-        Check if there's AngularJS loading on page, and wait for it to finish.
-        
-        Reference Link:
-            http://ardesco.lazerycode.com/index.php/2014/02/waiting-angular/
-        '''
-        i = 0
-        while env.threadlocal.BROWSER.execute_script("window.isBrowserBusy() == false") == False:
-            print "haha", i
-            i = i + 1
-            time.sleep(1)
-            if i == 10:
-                break
-            
-        
-        return
-        try:
-            if env.threadlocal.BROWSER.execute_script("return (window.angular != null)"):
-                
-                i = 0
-                while env.threadlocal.BROWSER.execute_script("return (angular.element(document).injector() != null) && (angular.element(document).injector().get('$http').pendingRequests.length === 0)") == False:
-#                 while env.threadlocal.BROWSER.execute_script("return (angular.element(document).injector() != null) && (angular.element(document).injector().get('$http').pendingRequests.length === 0)") == False:
-                    time.sleep(0.5)
-                    
-                    if i == 0:
-                        log.step_normal("Element [%s]: wait for AngularJS loading..." % cls.__name__)
-                    elif i == 180:
-                        log.step_normal("Element [%s]: i==180, break" % cls.__name__)
-                        break
-                    
-                    i = i + 1
-        
-        except UnexpectedAlertPresentException:
-            log.step_warning("Element [%s]: UnexpectedAlertPresentException." % cls.__name__)
-        except:
-            log.step_warning(str(sys.exc_info()))
-    
-    
-    @compatiblemethod
     def __wait_for_enabled(cls):
         elements = env.threadlocal.BROWSER.find_elements(cls.by, cls.value)
         
@@ -1241,8 +1201,6 @@ class WebElement:
     
     @compatiblemethod
     def __wait(cls):
-        if env.SUPPORT_ANGULARJS: cls.__wait_for_angular()
-        
         t = 0
         while t < 300:
             t = t + 1
