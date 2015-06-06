@@ -1,47 +1,35 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Knitter : Python Web Automation Test Framework with Selenium WebDriver">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Knitter</title>
+    <meta charset="UTF-8">
+    <title>Knitter by hww712</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">Knitter</h1>
+      <h2 class="project-tagline">Python Web Automation Test Framework with Selenium WebDriver</h2>
+      <a href="https://github.com/hww712/knitter" class="btn">View on GitHub</a>
+      <a href="https://github.com/hww712/knitter/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/hww712/knitter/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/hww712/knitter">View on GitHub</a>
-
-          <h1 id="project_title">Knitter</h1>
-          <h2 id="project_tagline">Python Web Automation Test Framework with Selenium WebDriver</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/hww712/knitter/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/hww712/knitter/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a name="tutorial" class="anchor" href="#tutorial"><span class="octicon octicon-link"></span></a>Tutorial</h1>
+    <section class="main-content">
+      <h1>
+<a id="tutorial" class="anchor" href="#tutorial" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tutorial</h1>
 
 <h2>
-<a name="1-installation" class="anchor" href="#1-installation"><span class="octicon octicon-link"></span></a>1. Installation</h2>
+<a id="1-installation" class="anchor" href="#1-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Installation</h2>
 
 <pre><code>pip install knitter
 </code></pre>
 
 <h2>
-<a name="2-preconditions" class="anchor" href="#2-preconditions"><span class="octicon octicon-link"></span></a>2. Preconditions</h2>
+<a id="2-preconditions" class="anchor" href="#2-preconditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Preconditions</h2>
 
 <ul>
 <li><p>Python 2.7</p></li>
@@ -55,15 +43,17 @@
 <li><p>You can also find both driver files <a href="https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers">here</a>.</p></li>
 </ul>
 </li>
-</ul><h2>
-<a name="3-demo-project" class="anchor" href="#3-demo-project"><span class="octicon octicon-link"></span></a>3. Demo project</h2>
+</ul>
+
+<h2>
+<a id="3-demo-project" class="anchor" href="#3-demo-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Demo project</h2>
 
 <ul>
 <li>
 <p>Demo project source code:</p>
 
 <ul>
-<li><a href="https://github.com/hww712/Knitter/tree/master/examples/DemoProject">https://github.com/hww712/Knitter/tree/master/examples/DemoProject</a></li>
+<li><a href="https://github.com/hww712/Knitter/tree/master/example">https://github.com/hww712/Knitter/tree/master/example</a></li>
 </ul>
 </li>
 <li>
@@ -73,26 +63,28 @@
 <li><a href="http://sleepycat.org/static/knitter/KnitterDemo.html">http://sleepycat.org/static/knitter/KnitterDemo.html</a></li>
 </ul>
 </li>
-</ul><h4>
-<a name="step-1-create-project-folder-structure" class="anchor" href="#step-1-create-project-folder-structure"><span class="octicon octicon-link"></span></a>Step 1. Create project folder structure.</h4>
+</ul>
 
-<pre><code>DemoProject/
-           data/
-                ...               # excel data files, such as "TestData.xlsx"
-           page/
-                 __init__.py
-                 DemoPage.py      # elements of test page
-                 ...
-           testcase/
-                 __init__.py
-                 demo_module.py   # test cases
-                 ...
-           conf.ini
-           runner.py
+<h4>
+<a id="step-1-create-a-source-code-package-demoprj" class="anchor" href="#step-1-create-a-source-code-package-demoprj" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 1. Create a source code package "demoprj".</h4>
+
+<pre><code>demoprj/
+       page/
+             __init__.py
+             KintterDemo.py   # elements of test page
+             ...
+
+       testcase/
+             __init__.py
+             validations.py   # test cases
+             ...
+
+       __init__.py
+       conf.py                # configurations
 </code></pre>
 
 <h4>
-<a name="step-2-add-pagedemopagepy" class="anchor" href="#step-2-add-pagedemopagepy"><span class="octicon octicon-link"></span></a>Step 2. Add page/DemoPage.py</h4>
+<a id="step-2-add-page-elements-to-pageknitterdemopy" class="anchor" href="#step-2-add-page-elements-to-pageknitterdemopy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 2. Add page elements to "page/KnitterDemo.py"</h4>
 
 <pre><code># -*- coding: utf-8 -*-
 # All element class must inherit from "WebElement".
@@ -137,81 +129,71 @@ class Result(WebElement):
 </code></pre>
 
 <h4>
-<a name="step-3-add-testcasedemo_modulepy" class="anchor" href="#step-3-add-testcasedemo_modulepy"><span class="octicon octicon-link"></span></a>Step 3. Add testcase/demo_module.py</h4>
+<a id="step-3-add-cases-to-testcasevalidationspy" class="anchor" href="#step-3-add-cases-to-testcasevalidationspy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 3. Add cases to "testcase/validations.py"</h4>
 
 <pre><code># -*- coding: utf-8 -*-
-# Just import the page you need, and use it directly.
 
-from page import DemoPage
+from knitter import datadriver, log
+from demoprj.page import KnitterDemo
 
-def TestCase001_Normal_Input_Test():
 
+def TestCase001_NormalInputTest():
     #### Name ###
-    DemoPage.Name.Title.Select("Mr.")
-    DemoPage.Name.Name.Set("Henry.Wang")
+    KnitterDemo.Name.Title.Select("Mr.")
+    KnitterDemo.Name.Name.Set("Henry.Wang")
 
     ### Gender ###
-    DemoPage.Gender.Male.Click()
+    KnitterDemo.Gender.Male.Click()
 
     ### Hobbies ###
-    DemoPage.Hobby.Music.Click()
-    DemoPage.Hobby.Travel.Click()
+    KnitterDemo.Hobby.Music.Click()
+    KnitterDemo.Hobby.Travel.Click()
 
     ###### Result ######
-    DemoPage.SubmitButton.Click()
+    KnitterDemo.SubmitButton.Click()
 
-    DemoPage.Result.VerifyInnerHTMLContains("Henry.Wang")
-    DemoPage.Result.VerifyInnerHTMLContains("Gender: male")
-    DemoPage.Result.VerifyInnerHTMLContains("Hobbies: Music Travel")
+    KnitterDemo.Result.VerifyInnerHTMLContains("Henry.Wang")
+    KnitterDemo.Result.VerifyAttribute("innerHTML", "Music", method="contain")
 </code></pre>
 
 <h4>
-<a name="step-4-configure-confini" class="anchor" href="#step-4-configure-confini"><span class="octicon octicon-link"></span></a>Step 4. Configure conf.ini</h4>
+<a id="step-4-add-configurations-to-confpy" class="anchor" href="#step-4-add-configurations-to-confpy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 4. Add configurations to "conf.py"</h4>
 
-<pre><code>DRIVER_CHROME       = E:\Knitter\examples\DemoProject\drivers\chromedriver_win32\chromedriver.exe
-DRIVER_IE           = E:\Knitter\examples\DemoProject\drivers\IEDriverServer_Win32_2.42.0\IEDriverServer.exe
-
-TESTING_URL         = http://sleepycat.org/static/knitter/KnitterDemo.html
+<pre><code># -*- coding: utf-8 -*-
 
 
-# divided by "|", run test case one time for each browser.
-TESTING_BROWSERS    = Chrome|IE|Firefox
+class MSWindows:
+    BASE_URL = 'http://sleepycat.org/static/knitter/KnitterDemo.html'
+    TESTING_BROWSERS = 'Firefox'
 </code></pre>
 
 <h4>
-<a name="step-5-configure-runnerpy" class="anchor" href="#step-5-configure-runnerpy"><span class="octicon octicon-link"></span></a>Step 5. Configure runner.py</h4>
+<a id="step-5-setup-runpy" class="anchor" href="#step-5-setup-runpy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 5. Setup "run.py"</h4>
 
 <pre><code># -*- coding: utf-8 -*-
 
 from knitter import executer
+from demoprj import conf, testcase
 
-executer.run_case("demo_module", "TestCase001_Normal_Input_Test") 
+
+executer.run(conf.ChromeDemo, testcase.validations.TestCase001_NormalInputTest)
 </code></pre>
 
 <h4>
-<a name="step-6-run-runnerpy" class="anchor" href="#step-6-run-runnerpy"><span class="octicon octicon-link"></span></a>Step 6. Run runner.py</h4>
+<a id="step-6-check-result" class="anchor" href="#step-6-check-result" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 6. Check result</h4>
 
-<pre><code>result/
-      summary.log     # summary result
-      result.xls      # summary result in excel.
-      screenshort/
-                 ...  # screen shorts of error test cases.
-
-      testcase/
-              ...     # detailed log of each test case
+<pre><code>result/index.html
 </code></pre>
-      </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Knitter maintained by <a href="https://github.com/hww712">hww712</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/hww712/knitter">Knitter</a> is maintained by <a href="https://github.com/hww712">hww712</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
 
-    
+    </section>
 
+  
   </body>
 </html>
+
