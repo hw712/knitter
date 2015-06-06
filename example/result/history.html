@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Knitter Web Automation Test History</title>
+
+    <style>
+        a {
+            color: #034CAC;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline; /* do not show the dot of list */
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #034CAC;
+        }
+        a:visited {
+            color: #000000;
+        }
+        button {
+            width: 120px;
+        }
+        body {
+            width: 100%;
+            color: #000000;
+            font-size: 13px;
+            font-family: verdana, Courier New;
+            text-align: center;
+        }
+        table, td, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 1260px;
+            text-align: center;
+        }
+        .tcaption {
+            background-color: #65ACCA;
+        }
+        .theader {
+            background-color: #D7EAF2;
+        }
+        .tfail{
+            background-color: #FF6F6F;
+        }
+        h1{
+            text-align: center;
+        }
+            
+    </style>
+</head>
+
+<body>
+    <script>
+        function countdown(){
+            var timer = 9;
+            setInterval(function() {
+                timer--;
+                document.getElementById('timer').innerHTML = timer;
+        
+            }, 1000);
+        }
+        function autorefresh(){
+            window.location.reload(); 
+        } 
+        
+        countdown();
+        window.setTimeout('autorefresh()', 9000);
+    </script>
+    
+    <h1>Knitter Web Automation Test History</h1>
+    <p style="text-align: center">
+    [<a href="index.html">Last Test</a>]&nbsp;[<a href="history.html">History Tests</a>]
+    </p>
+    <p style="text-align: center">
+    Pending to do auto-refresh in [<span id='timer'>9</span>] seconds. &nbsp;&nbsp;&nbsp;&nbsp;<button onclick="window.location.reload();">Refresh Now</button></p>
+    
+
+    <table>
+        <tr class="tcaption"><th colspan="5">History Results (Latest 100 Results)</th></tr>
+        
+        <tr class="theader">
+            <th>Result Folder</th>
+            <th>Duration</th>
+            <th>Total Cases</th>
+            <th>Passed Cases</th>
+            <th>Failed Cases</th>
+        </tr>
+
+        <tr>
+            <td style='width: 36%'><a href="2015-06-06_130000__2015-06-06_130032/index.html">2015-06-06_130000__2015-06-06_130032</a></td>
+            <td>0:00:32</td>
+            <td>4</td>
+            <td>4</td>
+            <td>0</td>
+        </tr>
+
+        <tr>
+            <td style='width: 36%'><a href="2015-06-06_125935__2015-06-06_130000/index.html">2015-06-06_125935__2015-06-06_130000</a></td>
+            <td>0:00:25</td>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+
+        <tr>
+            <td style='width: 36%'><a href="2015-06-06_125916__2015-06-06_125935/index.html">2015-06-06_125916__2015-06-06_125935</a></td>
+            <td>0:00:19</td>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+
+    </table> 
+<br />
+<br />
+<br />
+
+<hr />
+<p style="text-align: center">©2015 DB Schenker</p>
+<br />
+<body>
+</html>
