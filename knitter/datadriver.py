@@ -1,14 +1,26 @@
 # -*- coding: utf-8 -*-
 
+import inspect
 import xlrd
+import os
 
 import env, log
 
 
 class ExcelSheet:
     def __init__(self, excel, sheet):
-        self.excel = xlrd.open_workbook(r"%s\data\%s" % (env.PROJECT_PATH, excel))
+        if env.EXCEL_DATA_PATH == "": 
+            env.EXCEL_DATA_PATH = os.path.join(env.RESULT_PATH, "data")
+        
+        self.excel = xlrd.open_workbook(os.path.join(env.EXCEL_DATA_PATH, excel))
         self.sheet = self.excel.sheet_by_name(sheet)
+        
+        # something like: [['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', '']]
+        self.data = [["" for x in range(self.sheet.ncols)] for y in range(self.sheet.nrows)] 
+        
+        for i in range(self.sheet.nrows):
+            for j in range(self.sheet.ncols):
+                self.data[i][j] = self.cellxy(i, j)
     
     def nrows(self):
         return self.sheet.nrows
@@ -49,6 +61,38 @@ class ExcelSheet:
                 log.step_normal("ExcelSheet.cellx(%s, %s)=[%s]" % (rowx, col_name, self.cellxy(rowx, colx)))
                 return self.cellxy(rowx, colx)
     
+    def cell_by_colname(self, rowx, col_name):
+        for colx in range(0, self.sheet.ncols):
+            if self.data[0][colx] == col_name:
+                log.step_normal("[%s][%s]=[%s]" % (colx, col_name, self.data[rowx][colx]))
+                return self.data[rowx][colx]
+        
+        return "ERROR: NO DATA FETCHED!"
+    
+    def cell_by_rowname(self, row_name, colx):
+        for rowx in range(0, self.sheet.nrows):
+            if self.data[rowx][0] == row_name:
+                log.step_normal("[%s][%s]=[%s]" % (row_name, colx, self.data[rowx][colx]))
+                return self.data[rowx][colx]
+        
+        return "ERROR: NO DATA FETCHED!"
+    
+    def cell_by_row_and_col_name(self, row_name, col_name):
+        for rowx in range(0, self.nrows()):
+            if self.cellxy(rowx, 0) == row_name:
+                return self.cell(rowx, col_name)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
