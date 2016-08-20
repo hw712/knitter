@@ -1,6 +1,7 @@
 
 
 
-import validations
+from . import validations
+
 
 

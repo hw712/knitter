@@ -2,9 +2,17 @@
 
 import datetime, os, sys, inspect, stat, shutil
 
+import sys
+import os
+this_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.dirname(this_dir))
 
-import log
-import env
+try:
+    import log
+    import env
+except:
+    from knitter import log
+    from knitter import env
 
 
 def stamp_date():
@@ -203,7 +211,8 @@ def get_version_info():
     from sys import version as python_version
     
     browser_version = ""
-    for k, v in env.BROWSER_VERSION_INFO.iteritems():
+#     for k, v in env.BROWSER_VERSION_INFO.iteritems():
+    for k, v in env.BROWSER_VERSION_INFO.items():
         browser_version += "%s - %s, " % (k, v)
     
     return "Version Info:  Python %s, %sKnitter %s, Selenium %s" % (python_version.split(" ")[0],
@@ -216,7 +225,7 @@ if __name__ == "__main__":
     pass
 
 #     env.BROWSER_VERSION_INFO = {"Firefox": "22.0"}
-    print get_version_info()
+#     print get_version_info()
 
 #     thedir = r"E:\EclipseWorkspace\claims-qa-test\result"
 #     print [ name for name in os.listdir(thedir) if os.path.isdir(os.path.join(thedir, name)) ]

@@ -4,9 +4,9 @@ import datetime, sys, os
 
 import xlwt
 
-import env
-import common
-import htmlreport
+from knitter import env
+from knitter import common
+from knitter import htmlreport
 
 
 def generate_result_xls():

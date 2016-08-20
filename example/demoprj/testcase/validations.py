@@ -4,7 +4,6 @@ from knitter import datadriver, log
 from demoprj.page import KnitterDemo
 
 
-
 def TestCase001_NormalInputTest():
     #### Name ###
     KnitterDemo.Name.Title.Select("Mr.")

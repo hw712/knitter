@@ -4,7 +4,7 @@ import inspect
 import xlrd
 import os
 
-import env, log
+from knitter import env, log
 
 
 class ExcelSheet:

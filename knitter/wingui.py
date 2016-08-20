@@ -21,7 +21,7 @@ import re
 import SendKeys
 import time
 
-import log
+from knitter import log
 
 class WindowFinder:
     """Class to find and make focus on a particular Native OS dialog/Window """

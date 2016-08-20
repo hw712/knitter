@@ -3,11 +3,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException, UnexpectedAlertPresentException, WebDriverException
-from httplib import BadStatusLine
+
 
 import time, sys
-import env, log
-from operator import isNumberType
+from knitter import env, log
 
 
 class compatiblemethod(object):
@@ -256,8 +255,7 @@ class WebElement:
     def Set(cls, value):
         log.step_normal(u"Element [%s]: Set [%s]." % (cls.__name__, value))
         
-        if isNumberType(value):
-            value = str(value)
+        value = str(value)
         
         cls.__wait()
         elements = env.threadlocal.BROWSER.find_elements(cls.by, cls.value)
@@ -1210,8 +1208,6 @@ class WebElement:
             except NoSuchElementException:
                 log.step_normal("Element [%s]: NoSuchElementException." % cls.__name__)
                 elements = []
-            except BadStatusLine:
-                log.step_warning("Element [%s]: BadStatusLine." % cls.__name__)
             except UnexpectedAlertPresentException:
                 log.step_warning("Element [%s]: UnexpectedAlertPresentException." % cls.__name__)
             
@@ -1244,8 +1240,6 @@ class WebElement:
             except NoSuchElementException:
                 log.step_normal("Element [%s]: NoSuchElementException." % cls.__name__)
                 elements = []
-            except BadStatusLine:
-                log.step_warning("Element [%s]: BadStatusLine." % cls.__name__)
                 continue
             except UnexpectedAlertPresentException:
                 log.step_warning("Element [%s]: UnexpectedAlertPresentException." % cls.__name__)
@@ -1272,8 +1266,6 @@ class WebElement:
             except NoSuchElementException:
                 log.step_normal("Element [%s]: NoSuchElementException." % cls.__name__)
                 elements = []
-            except BadStatusLine:
-                log.step_warning("Element [%s]: BadStatusLine." % cls.__name__)
                 continue
             except UnexpectedAlertPresentException:
                 log.step_warning("Element [%s]: UnexpectedAlertPresentException." % cls.__name__)

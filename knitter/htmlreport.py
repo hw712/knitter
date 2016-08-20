@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os, shutil, datetime
-import env, common
+from knitter import env, common
 
 def html_source_header(title="Knitter Web Automation Test Result"):
     return """<!DOCTYPE HTML>
@@ -181,14 +181,14 @@ def html_source_end_table():
 """
 
 def html_source_version_info():
-    return """
+    return u"""
 <p style="text-align: center">%s</p>
 """ % common.get_version_info()
 
 def html_source_foot():
-    return """
+    return u"""
 <hr />
-<p style="text-align: center">©2015 DB Schenker</p>
+<p style="text-align: center">2016 Powered by Knitter</p>
 <br />
 <body>
 </html>

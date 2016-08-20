@@ -6,7 +6,7 @@ from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.common.exceptions import WebDriverException
 import types, os, datetime, importlib, time, sys
-import log, env, common
+from knitter import log, env, common
 
 import threading
 
@@ -79,7 +79,7 @@ def launch_browser(url):
     
     
     
-    if not env.BROWSER_VERSION_INFO.has_key(env.threadlocal.TESTING_BROWSER):
+    if not env.threadlocal.TESTING_BROWSER in env.BROWSER_VERSION_INFO:
         env.BROWSER_VERSION_INFO[env.threadlocal.TESTING_BROWSER] = browser.capabilities['version']
     
     
