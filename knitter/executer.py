@@ -6,7 +6,19 @@ from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.common.exceptions import WebDriverException
 import types, os, datetime, importlib, time, sys
-from knitter import log, env, common
+# from knitter import log, env, common
+
+try:
+    # Python 3
+    from knitter import log
+    from knitter import env
+    from knitter import common
+except ImportError:
+    # Python 2
+    import log
+    import env
+    import common
+
 
 import threading
 

@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import os, shutil, datetime
-from knitter import env, common
+# from knitter import env, common
+try:
+    # Python 3
+    from knitter import env
+    from knitter import common
+except ImportError:
+    # Python 2
+    import env
+    import common
 
 def html_source_header(title="Knitter Web Automation Test Result"):
     return """<!DOCTYPE HTML>

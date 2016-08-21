@@ -1,18 +1,30 @@
 # -*- coding: utf-8 -*-
 
+from platform import python_version_tuple
 import datetime, os, sys, inspect, stat, shutil
 
-import sys
-import os
-this_dir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.dirname(this_dir))
-
 try:
-    import log
-    import env
-except:
+    # Python 3
     from knitter import log
     from knitter import env
+except ImportError:
+    # Python 2
+    import log
+    import env
+
+
+
+def is_python_2():
+    if python_version_tuple()[0] == '2':
+        return True
+    else:
+        return False
+
+def is_python_3():
+    if python_version_tuple()[0] == '3':
+        return True
+    else:
+        return False
 
 
 def stamp_date():
@@ -57,7 +69,8 @@ def add_unique_postfix(fn):
     __source__ = 'http://code.activestate.com/recipes/577200-make-unique-file-name/'
     
     '''
-    fn = unicode(fn)
+    if is_python_2():
+        fn = unicode(fn)
     
     if not os.path.exists(fn):
         return fn
@@ -67,7 +80,7 @@ def add_unique_postfix(fn):
 
     make_fn = lambda i: os.path.join(path, '%s__%d%s' % (name, i, ext))
 
-    for i in xrange(2, sys.maxint):
+    for i in range(2, sys.maxint):
         uni_fn = make_fn(i)
         if not os.path.exists(uni_fn):
             return uni_fn

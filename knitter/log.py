@@ -4,10 +4,19 @@ import datetime, sys, os
 
 import xlwt
 
-from knitter import env
-from knitter import common
-from knitter import htmlreport
-
+# from knitter import env
+# from knitter import common
+# from knitter import htmlreport
+try:
+    # Python 3
+    from knitter import env
+    from knitter import common
+    from knitter import htmlreport
+except ImportError:
+    # Python 2
+    import env
+    import common
+    import htmlreport
 
 def generate_result_xls():
     wbk = xlwt.Workbook()

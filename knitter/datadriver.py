@@ -4,8 +4,14 @@ import inspect
 import xlrd
 import os
 
-from knitter import env, log
-
+try:
+    # Python 3
+    from knitter import log
+    from knitter import env
+except ImportError:
+    # Python 2
+    import log
+    import env
 
 class ExcelSheet:
     def __init__(self, excel, sheet):

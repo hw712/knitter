@@ -5,9 +5,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException, UnexpectedAlertPresentException, WebDriverException
 
 
-import time, sys
-from knitter import env, log
-
+# import time, sys
+# from knitter import env, log
+try:
+    # Python 3
+    from knitter import env
+    from knitter import log
+except ImportError:
+    # Python 2
+    import env
+    import log
 
 class compatiblemethod(object):
     """If the first argument(cls) is a class, set/use properties of the class. If the 
