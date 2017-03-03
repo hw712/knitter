@@ -5,12 +5,12 @@ from setuptools import setup
 
 setup(
     name                    = 'knitter',
-    version                 = '0.4.0',
+    version                 = '0.4.1',
     
-    author                  = 'Hongwei Wang',
-    author_email            = 'hww712@gmail.com',
-    maintainer              = 'Hongwei Wang',
-    maintainer_email        = 'hww712@gmail.com',
+    author                  = 'Henry Wang',
+    author_email            = 'skymatrix@126.com',
+    maintainer              = 'Henry Wang',
+    maintainer_email        = 'skymatrix@126.com',
     
     url                     = 'https://github.com/hww712/Knitter',
     description             = 'Python Web Automation Test Framework with Selenium WebDriver',

@@ -57,6 +57,7 @@ RESERVED_FIREFOX_BINARY = ""
 
 DRIVER_OF_CHROME     = ""
 DRIVER_OF_IE         = ""
+DRIVER_OF_FIREFOX    = ""
 
 
 FAST_FAIL            = False

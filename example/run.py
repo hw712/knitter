@@ -6,8 +6,7 @@ from demoprj import conf, testcase
 # executer.run(conf.MSWindows, testcase.validations.TestCase001_NormalInputTest)
 # executer.run(conf.ChromeDemo, testcase.validations.TestCase002_Data_In_Excel)
 
-
-executer.run(conf.MultiBrowsersDemo, testcase.validations)
+executer.run(conf.LatestDriver, testcase.validations)
 
 
 

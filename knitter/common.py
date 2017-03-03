@@ -13,7 +13,6 @@ except ImportError:
     import env
 
 
-
 def is_python_2():
     if python_version_tuple()[0] == '2':
         return True

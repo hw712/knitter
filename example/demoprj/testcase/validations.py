@@ -22,6 +22,7 @@ def TestCase001_NormalInputTest():
     KnitterDemo.Result.VerifyInnerHTMLContains("Henry.Wang")
     KnitterDemo.Result.VerifyAttribute("innerHTML", "Music", method="contain")
 
+    KnitterDemo.Name.Name.GetElementObj()
 
 
 def TestCase002_Data_In_Excel():

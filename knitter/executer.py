@@ -2,7 +2,6 @@
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.common.exceptions import WebDriverException
 import types, os, datetime, importlib, time, sys
@@ -30,78 +29,72 @@ def launch_browser(url):
     '''
     
     if env.threadlocal.TESTING_BROWSER.upper() == 'FIREFOX':
-        fp = FirefoxProfile()
-        fp.native_events_enabled = False
+        firefox_capabilities = DesiredCapabilities.FIREFOX
         
-        if env.FIREFOX_BINARY == '':
-            try:
-                env.THREAD_LOCK.acquire()
-                browser = webdriver.Firefox(firefox_profile=fp)
-            except:
-                if isinstance(env.RESERVED_FIREFOX_BINARY, str) and env.RESERVED_FIREFOX_BINARY != "":
-                    browser = webdriver.Firefox(firefox_profile=fp, 
-                                                firefox_binary=FirefoxBinary(firefox_path=env.RESERVED_FIREFOX_BINARY))
-                else:
-                    try:
-                        log.step_warning("try to start firefox again!")
-                        time.sleep(20)
-                        browser = webdriver.Firefox(firefox_profile=fp)
-                    except:
-                        log.handle_error()
-                        return False
-            finally:
-                env.THREAD_LOCK.release()
-                
-        else:
-            browser = webdriver.Firefox(firefox_profile=fp, 
+        ## set profile
+        fp = webdriver.FirefoxProfile()
+        fp.set_preference('browser.download.manager.showWhenStarting', False)
+        
+        try:
+            env.THREAD_LOCK.acquire()
+            
+            if env.FIREFOX_BINARY == '':
+                browser = webdriver.Firefox(executable_path=env.DRIVER_OF_FIREFOX,
+                                            firefox_profile=fp, capabilities=firefox_capabilities)
+            else:
+                browser = webdriver.Firefox(executable_path=env.DRIVER_OF_FIREFOX, 
+                                            firefox_profile=fp, 
                                             firefox_binary=FirefoxBinary(firefox_path=env.FIREFOX_BINARY))
-        
-        
-    
+
+            if env.threadlocal.TESTING_BROWSER not in env.BROWSER_VERSION_INFO:
+                env.BROWSER_VERSION_INFO[env.threadlocal.TESTING_BROWSER] = browser.capabilities['browserVersion']
+
+        except:
+            log.handle_error()
+            return False
+        finally:
+            env.THREAD_LOCK.release()
+
     elif env.threadlocal.TESTING_BROWSER.upper() == 'CHROME':
-        if env.DRIVER_OF_CHROME == '':
-            print ('DRIVER_OF_CHROME is empty.')
+        try:
+            env.THREAD_LOCK.acquire()
+            browser = webdriver.Chrome(executable_path=env.DRIVER_OF_CHROME)
+
+            if env.threadlocal.TESTING_BROWSER not in env.BROWSER_VERSION_INFO:
+                env.BROWSER_VERSION_INFO[env.threadlocal.TESTING_BROWSER] = browser.capabilities['version']
+
+        except:
+            log.handle_error()
             return False
-        
-        os.environ['webdriver.chrome.driver'] = env.DRIVER_OF_CHROME
-        browser = webdriver.Chrome(executable_path=env.DRIVER_OF_CHROME)
-    
-    
+        finally:
+            env.THREAD_LOCK.release()
+
     elif env.threadlocal.TESTING_BROWSER.upper() == 'IE':
-        if env.DRIVER_OF_IE == '':
-            print ('DRIVER_OF_IE is empty.')
-            return False
-        
-#       os.popen('TASKKILL /F /IM iexplore.exe')
+        '''
         os.popen('TASKKILL /F /IM IEDriverServer.exe')
-        
         dc = DesiredCapabilities.INTERNETEXPLORER.copy()
-        
         dc['nativeEvents'] = False
         dc['acceptSslCerts'] = True
-        
-        os.environ['webdriver.ie.driver'] = env.DRIVER_OF_IE
-        
-        browser = webdriver.Ie(executable_path=env.DRIVER_OF_IE, 
-                                   capabilities=dc)
-    
-    
-    elif env.threadlocal.TESTING_BROWSER.upper() == 'PHANTOMJS':
-        browser = webdriver.PhantomJS(r'E:\\AutomationWork\\phantomjs-1.9.8-windows\\phantomjs.exe')
-    
-    
-    
-    if not env.threadlocal.TESTING_BROWSER in env.BROWSER_VERSION_INFO:
-        env.BROWSER_VERSION_INFO[env.threadlocal.TESTING_BROWSER] = browser.capabilities['version']
-    
-    
+        '''
+
+        try:
+            env.THREAD_LOCK.acquire()
+            browser = webdriver.Ie(executable_path=env.DRIVER_OF_IE)
+
+            if env.threadlocal.TESTING_BROWSER not in env.BROWSER_VERSION_INFO:
+                env.BROWSER_VERSION_INFO[env.threadlocal.TESTING_BROWSER] = browser.capabilities['version']
+        except:
+            log.handle_error()
+            return False
+        finally:
+            env.THREAD_LOCK.release()
+
     browser.set_window_size(1366, 758)
     browser.set_window_position(0, 0)
     browser.set_page_load_timeout(300)
     browser.implicitly_wait(0)
     
     browser.get(url)
-    
     
     return browser
 
@@ -233,7 +226,7 @@ def __run_test_case(case):
         env.threadlocal.BROWSER = None
 
 
-def decorator():
+def peripheral():
     def handle_func(func):
         def handle_args(*args):
             common.parse_conf_class(args[0])
@@ -248,7 +241,7 @@ def decorator():
     return handle_func
 
 
-@decorator()
+@peripheral()
 def run(*args):
     if len(args) < 2:
         print ("Code error! 1st arg => conf; other args => test object(s).")
@@ -269,7 +262,6 @@ def run(*args):
         
         for thread in threads:
             thread.join()
-    
 
 
 

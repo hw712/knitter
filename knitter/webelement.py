@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import time, sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException, UnexpectedAlertPresentException, WebDriverException
 
 
-# import time, sys
 # from knitter import env, log
 try:
     # Python 3
@@ -472,10 +472,11 @@ class WebElement:
         
         cls.__wait()
         elements = env.threadlocal.BROWSER.find_elements(cls.by, cls.value)
+        elements[cls.index].click()
         
-        action = webdriver.ActionChains(env.threadlocal.BROWSER)
-        action.click(elements[cls.index])
-        action.perform()
+#         action = webdriver.ActionChains(env.threadlocal.BROWSER)
+#         action.click(elements[cls.index])
+#         action.perform()
         
         
         #=======================================================================
