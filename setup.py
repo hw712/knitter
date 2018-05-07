@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from setuptools import setup
 
@@ -12,7 +11,7 @@ setup(
     maintainer              = 'Henry Wang',
     maintainer_email        = 'skymatrix@126.com',
     
-    url                     = 'https://github.com/hww712/Knitter',
+    url                     = 'https://github.com/hw712/Knitter',
     description             = 'Python Web Automation Test Framework with Selenium WebDriver',
     long_description        = 'This is a web testing framework based on Selenium WebDriver. The object is to develop web testing automation project with good implementation, maintainance and extendability.',
     
