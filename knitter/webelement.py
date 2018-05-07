@@ -5,7 +5,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException, UnexpectedAlertPresentException
 from selenium.common.exceptions import ElementClickInterceptedException
 
-
 from knitter.configure import Browser
 from knitter import logger
 
@@ -53,13 +52,18 @@ class CompatibleMethod(object):
 class WebBrowser:
 
     @CompatibleMethod
+    def Wait(self, seconds):
+        logger.step_normal("Element [%s]: Wait for [%s] seconds." % (self.__name__, seconds))
+        time.sleep(seconds)
+
+    @CompatibleMethod
     def ScrollTo(self, x, y):
-        logger.step_normal(u"Element [%s]: Scroll To [%s, %s]" % (self.__name__, x, y))
+        logger.step_normal("Element [%s]: Scroll To [%s, %s]" % (self.__name__, x, y))
         Browser.RunningBrowser.execute_script("window.scrollTo(%s, %s);" % (x, y))
 
     @CompatibleMethod
     def Refresh(self, times=4):
-        logger.step_normal(u"Element [%s]: Browser Refresh" % (self.__name__,))
+        logger.step_normal("Element [%s]: Browser Refresh" % (self.__name__,))
 
         for i in range(times):
             action = webdriver.ActionChains(Browser.RunningBrowser)
@@ -68,14 +72,14 @@ class WebBrowser:
 
     @CompatibleMethod
     def DeleteAllCookies(self):
-        logger.step_normal(u"Element [%s]: Browser Delete All Cookies" % (self.__name__,))
+        logger.step_normal("Element [%s]: Browser Delete All Cookies" % (self.__name__,))
         Browser.RunningBrowser.delete_all_cookies()
 
         time.sleep(3)
 
     @CompatibleMethod
     def NavigateTo(self, url):
-        logger.step_normal(u"Element [%s]: Navigate To [%s]" % (self.__name__, url))
+        logger.step_normal("Element [%s]: Navigate To [%s]" % (self.__name__, url))
         Browser.RunningBrowser.get(url)
 
         time.sleep(3)
@@ -118,7 +122,8 @@ class WebBrowser:
         try:
             logger.step_normal("switch_to_default_content()")
             Browser.RunningBrowser.switch_to_default_content()
-        except:
+        except Exception as e:
+            logger.step_normal(e)
             pass
 
     @CompatibleMethod
@@ -127,7 +132,8 @@ class WebBrowser:
         try:
             Browser.RunningBrowser.switch_to.alert.send_keys(value)
             Browser.RunningBrowser.switch_to.default_content()
-        except:
+        except Exception as e:
+            logger.step_normal(e)
             logger.step_warning(str(sys.exc_info()))
 
     @CompatibleMethod
@@ -139,6 +145,7 @@ class WebBrowser:
             logger.step_pass("pass")
         else:
             logger.step_fail("fail")
+
         Browser.RunningBrowser.switch_to_default_content()
 
     @CompatibleMethod
@@ -146,7 +153,7 @@ class WebBrowser:
         logger.step_normal("SwitchToNewPopWindow()")
 
         t = 0
-        while(t < 10):
+        while t < 10:
             t = t + 1
             time.sleep(3)
 
@@ -167,15 +174,14 @@ class WebBrowser:
 
         try:
             Browser.RunningBrowser.switch_to.window(Browser.RunningBrowser.window_handles[0])
-        except:
+        except Exception as e:
+            logger.step_normal(e)
             logger.step_warning("Browser.RunningBrowser.switch_to.window(Browser.RunningBrowser.window_handles[0])")
-            pass
 
     @CompatibleMethod
     def SwitchToFrame(self, frame):
         logger.step_normal("SwitchToFrame()")
 
-        #       Browser.RunningBrowser.switch_to_frame(frame)
         Browser.RunningBrowser.switch_to.frame(frame)
 
     @CompatibleMethod
@@ -183,11 +189,10 @@ class WebBrowser:
         logger.step_normal("SwitchToDefaultContent()")
 
         try:
-            #           Browser.RunningBrowser.switch_to_default_content()
             Browser.RunningBrowser.switch_to.default_content()
-        except:
+        except Exception as e:
+            logger.step_normal(e)
             logger.step_warning("Browser.RunningBrowser.switch_to.default_content()")
-            pass
 
 
 class WebElement:
@@ -201,7 +206,7 @@ class WebElement:
 
     @CompatibleMethod
     def ScrollIntoView(self):
-        logger.step_normal(u"Element [%s]: ScrollToView()" % self.__name__)
+        logger.step_normal("Element [%s]: ScrollToView()" % self.__name__)
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
@@ -216,7 +221,7 @@ class WebElement:
 
     @CompatibleMethod
     def Set(self, value):
-        logger.step_normal(u"Element [%s]: Set [%s]." % (self.__name__, value))
+        logger.step_normal("Element [%s]: Set [%s]." % (self.__name__, value))
 
         value = str(value)
 
@@ -227,6 +232,7 @@ class WebElement:
             self.Select(value)
 
         else:
+            elements[self.index].clear()
             elements[self.index].send_keys(value)
 
             """
@@ -240,7 +246,7 @@ class WebElement:
 
 
     @CompatibleMethod
-    def SelectByPartial(self, value):
+    def SelectByPartText(self, value):
         logger.step_normal("Element [%s]: Select [%s]." % (self.__name__, value))
 
         self.__wait()
@@ -248,7 +254,7 @@ class WebElement:
 
         is_selected = False
 
-        #### select ################
+        # select
         if elements[self.index].tag_name == "select":
             options = elements[self.index].find_elements_by_tag_name('option')
 
@@ -258,24 +264,22 @@ class WebElement:
                     is_selected = True
                     break
 
-        #### ul ################
+        # ul
         elif elements[self.index].tag_name == "ul":
             lis = elements[self.index].find_elements_by_tag_name('li')
 
             for li in lis:
-                if value in  li.text:
+                if value in li.text:
                     li.click()
                     is_selected = True
                     break
 
-        #### NOT Supported ################
+        # not support
         else:
             logger.step_fail("Element [%s]: Tag [%s] NOT support [Select] method" % (self.__name__, elements[self.index].tag_name))
 
-
         if is_selected is False:
             logger.step_fail("No item selected!")
-
 
         self.__clearup()
 
@@ -288,38 +292,36 @@ class WebElement:
 
         is_selected = False
 
-        #### select ################
+        # select
         if elements[self.index].tag_name == "select":
             options = elements[self.index].find_elements_by_tag_name('option')
 
             for option in options:
-                #                 logger.step_normal("Element [%s]: option [%s]" % (self.__name__, option.text))
+                logger.step_normal("Element [%s]: option [%s]" % (self.__name__, option.text))
 
                 if option.text == value:
                     option.click()
                     is_selected = True
                     break
 
-        #### ul ################
+        # ul
         elif elements[self.index].tag_name == "ul":
             lis = elements[self.index].find_elements_by_tag_name('li')
 
             for li in lis:
-                #                 logger.step_normal("Element [%s]: li [%s]" % (self.__name__, li.text))
+                logger.step_normal("Element [%s]: li [%s]" % (self.__name__, li.text))
 
                 if li.text == value:
                     li.click()
                     is_selected = True
                     break
 
-        #### NOT Supported ################
+        # not support
         else:
             logger.step_fail("Element [%s]: Tag [%s] NOT support [Select] method" % (self.__name__, elements[self.index].tag_name))
 
-
         if is_selected is False:
             logger.step_fail("No item selected!")
-
 
         self.__clearup()
 
@@ -333,15 +335,15 @@ class WebElement:
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
 
-        #### ul ################
+        # ul
         if elements[self.index].tag_name == "ul":
             lis = elements[self.index].find_elements_by_tag_name('li')
 
             if order > 0:
 
-                ### Wait and try more times if NO item found. ###
+                # wait and try more times if NO item found.
                 t = 0
-                while (len(lis) == 0):
+                while len(lis) == 0:
                     lis = elements[self.index].find_elements_by_tag_name('li')
                     time.sleep(3)
                     t = t + 1
@@ -351,10 +353,9 @@ class WebElement:
                         logger.step_fail("Element [%s]: List Count = [%s]." % (self.__name__, len(lis)))
                         return
 
-
                 logger.step_normal("Element [%s]: List Count = [%s]." % (self.__name__, len(lis)))
 
-                if (order > len(lis)):
+                if order > len(lis):
                     logger.step_fail("Element [%s]: Not so many lists. [%s]" % (self.__name__, len(lis)))
                 else:
                     logger.step_normal("Element [%s]: Do Click [%s]" % (self.__name__, order))
@@ -371,16 +372,16 @@ class WebElement:
                 logger.step_fail("Order = [%s], Value Error." % order)
 
 
-        #### select ################
-        #### if elements[self.index].tag_name == "select":
+        # select
+        # if elements[self.index].tag_name == "select":
         else:
             options = elements[self.index].find_elements_by_tag_name('option')
 
             if order > 0:
 
-                ### Wait and try more times if NO item found. ###
+                # wait and try more times if NO item found.
                 t = 0
-                while (len(options) == 0):
+                while len(options) == 0:
                     options = elements[self.index].find_elements_by_tag_name('option')
                     time.sleep(3)
                     t = t + 1
@@ -390,10 +391,9 @@ class WebElement:
                         logger.step_fail("Element [%s]: options Count = [%s]." % (self.__name__, len(options)))
                         return
 
-
                 logger.step_normal("Element [%s]: options Count = [%s]." % (self.__name__, len(options)))
 
-                if (order > len(options)):
+                if order > len(options):
                     logger.step_fail("Element [%s]: Not so many options. [%s]" % (self.__name__, len(options)))
                 else:
                     logger.step_normal("Element [%s]: Do Click [%s]" % (self.__name__, order))
@@ -403,13 +403,12 @@ class WebElement:
             else:
                 logger.step_fail("Order = [%s], Value Error." % order)
 
-
         self.__clearup()
 
 
     @CompatibleMethod
     def MouseOver(self):
-        logger.step_normal("Element [%s]: MouseOver()" % (self.__name__))
+        logger.step_normal("Element [%s]: MouseOver()" % self.__name__)
 
         time.sleep(1)
 
@@ -427,7 +426,7 @@ class WebElement:
 
     @CompatibleMethod
     def Click(self):
-        logger.step_normal("Element [%s]: Click()" % (self.__name__))
+        logger.step_normal("Element [%s]: Click()" % self.__name__)
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
@@ -440,113 +439,11 @@ class WebElement:
             action.click(elements[self.index])
             action.perform()
 
-        #         action = webdriver.ActionChains(Browser.RunningBrowser)
-        #         action.click(elements[self.index])
-        #         action.perform()
-
-
-        #=======================================================================
-        # action = webdriver.ActionChains(Browser.RunningBrowser)
-        # action.key_up(Keys.CONTROL, elements[self.index])
-        # action.perform()
-        #
-        # action.click(elements[self.index])
-        # action.perform()
-        #=======================================================================
-
         self.__clearup()
-
-
-    @CompatibleMethod
-    def ClickTillObjAppear(self, obj):
-        '''
-        DESCRIPTION
-            Sometimes, one click on the element doesn't work. So wait 3 seconds, then
-            click again and again until the expected object "obj" appear.
-
-        RISK
-            It may do click() for many times!!!
-
-        EXAMPLES
-            Login.LoginButton.ClickTillObjAppear(OverView.LatestClaims.Button_Office())
-        '''
-        logger.step_normal("Element [%s]: ClickTillObjAppear()" % (self.__name__))
-
-        self.Click()
-
-        #=======================================================================
-        # self.__wait()
-        # elements = Browser.RunningBrowser.find_elements(self.by, self.value)
-        #
-        # i = 0
-        # while obj.GetRealTimeObjCount() == 0:
-        #     try:
-        #         action = webdriver.ActionChains(Browser.RunningBrowser)
-        #         action.click(elements[self.index])
-        #         action.perform()
-        #
-        #         logger.step_normal("click [%s] times..." % i)
-        #         time.sleep(5)
-        #
-        #         i = i + 1
-        #         if i == 2:
-        #             logger.step_normal("too many clicking times....")
-        #             break
-        #     except:
-        #         logger.step_normal(sys.exc_info()[0])
-        #
-        # self.__clearup()
-        #=======================================================================
-
-
-    @CompatibleMethod
-    def ClickTillObjDisappear(self, obj):
-        '''
-        DESCRIPTION
-            Sometimes, one click on the element doesn't work. So wait 3 seconds, then
-            click again and again until the expected object "obj" disappear.
-
-        RISK
-            It may do click() for many times!!!
-
-        EXAMPLES
-            Login.LoginButton.ClickTillObjDisappear(OverView.Button_Office())
-        '''
-        logger.step_normal("Element [%s]: ClickTillObjDisappear()" % (self.__name__))
-
-        self.Click()
-
-        #=======================================================================
-        # self.__wait()
-        # elements = Browser.RunningBrowser.find_elements(self.by, self.value)
-        #
-        # i = 0
-        # while True:
-        #     if obj.GetRealTimeObjCount() == 0:
-        #         break
-        #
-        #     try:
-        #         action = webdriver.ActionChains(Browser.RunningBrowser)
-        #         action.click(elements[self.index])
-        #         action.perform()
-        #     except:
-        #         logger.step_normal(sys.exc_info()[0])
-        #
-        #     logger.step_normal("click [%s] times..." % i)
-        #     time.sleep(5)
-        #
-        #     i = i + 1
-        #     if i == 2:
-        #         logger.step_fail("too many clicking times....")
-        #         break
-        #
-        # self.__clearup()
-        #=======================================================================
-
 
     @CompatibleMethod
     def DoubleClick(self):
-        logger.step_normal("Element [%s]: DoubleClick()" % (self.__name__))
+        logger.step_normal("Element [%s]: DoubleClick()" % self.__name__)
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
@@ -557,10 +454,9 @@ class WebElement:
 
         self.__clearup()
 
-
     @CompatibleMethod
     def ClickAndHold(self):
-        logger.step_normal("Element [%s]: ClickAndHold()" % (self.__name__))
+        logger.step_normal("Element [%s]: ClickAndHold()" % self.__name__)
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
@@ -573,11 +469,12 @@ class WebElement:
 
     @CompatibleMethod
     def DragAndDropByOffset(self, xoffset, yoffset):
-        '''
+        """
         Holds down the left mouse button on the source element,
         then moves to the target offset and releases the mouse button.
-        '''
-        logger.step_normal("Element [%s]: drag_and_drop_by_offset()" % (self.__name__))
+        """
+        logger.step_normal("Element [%s]: drag_and_drop_by_offset()" % self.__name__)
+
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
 
@@ -589,7 +486,7 @@ class WebElement:
 
     @CompatibleMethod
     def ReleaseClick(self):
-        logger.step_normal("Element [%s]: ReleaseClick()" % (self.__name__))
+        logger.step_normal("Element [%s]: ReleaseClick()" % self.__name__)
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
@@ -600,29 +497,22 @@ class WebElement:
 
         self.__clearup()
 
-
     @CompatibleMethod
-    def TypeIn(self, value):
-        '''Input value without clear existing values
-        '''
-        logger.step_normal(u"Element [%s]: TypeIn [%s]." % (self.__name__, value))
+    def TypeInWithoutClear(self, value):
+        """Input value without clear existing values"""
+
+        logger.step_normal("Element [%s]: TypeInWithoutClear [%s]." % self.__name__, value)
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
 
         elements[self.index].send_keys(value)
-        #=======================================================================
-        # action = webdriver.ActionChains(Browser.RunningBrowser)
-        # action.send_keys_to_element(elements[self.index], value)
-        # action.perform()
-        #=======================================================================
 
         self.__clearup()
 
-
     @CompatibleMethod
     def SendEnter(self):
-        logger.step_normal(u"Element [%s]: SendEnter()" % (self.__name__, ))
+        logger.step_normal("Element [%s]: SendEnter()" % self.__name__, )
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
@@ -633,81 +523,70 @@ class WebElement:
 
         self.__clearup()
 
-
     @CompatibleMethod
-    def GetObjectsCount(self):
-        logger.step_normal("Element [%s]: GetObjectsCount." % (self.__name__))
+    def GetRepetition(self):
+        logger.step_normal("Element [%s]: GetRepetition()." % self.__name__)
 
         self.__wait_for_appearing()
 
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
-        logger.step_normal("Element [%s]: GetObjectsCount = [%s]" % (self.__name__, len(elements)))
+        logger.step_normal("Element [%s]: repetition = [%s]" % (self.__name__, len(elements)))
 
         self.__clearup()
         return len(elements)
 
 
     @CompatibleMethod
-    def GetRealTimeObjCount(self): #### get real time obj counts, without waiting.
+    def GetRepetitionWithoutWaiting(self):
+        """ Get real time obj counts, without waiting."""
+        logger.step_normal("Element [%s]: GetRepetitionWithoutWaiting()." % self.__name__)
+
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
-        logger.step_normal("Element [%s]: GetRealTimeObjCount = [%s]" % (self.__name__, len(elements)))
+        logger.step_normal("Element [%s]: repetition = [%s]" % (self.__name__, len(elements)))
 
         self.__clearup()
         return len(elements)
-
-    @CompatibleMethod
-    def GetElementObj(self): #### get real time obj counts, without waiting.
-        logger.step_normal("Element [%s]: GetElementObj." % (self.__name__))
-
-        self.__wait()
-        elements = Browser.RunningBrowser.find_elements(self.by, self.value)
-
-        self.__clearup()
-        return elements[self.index]
-
 
     @CompatibleMethod
     def GetInnerHTML(self):
-        logger.step_normal(u"Element [%s]: GetInnerHTML()" % (self.__name__, ))
+        logger.step_normal("Element [%s]: GetInnerHTML()" % self.__name__)
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
 
-        logger.step_normal(u"Element [%s]: InnerHTML = [%s]" % (self.__name__, elements[self.index].get_attribute('innerHTML')))
+        logger.step_normal("Element [%s]: InnerHTML = [%s]" % (self.__name__, elements[self.index].get_attribute('innerHTML')))
 
         self.__clearup()
         return elements[self.index].get_attribute('innerHTML')
 
-
     @CompatibleMethod
     def GetAttribute(self, attr):
-        logger.step_normal(u"Element [%s]: GetAttribute [%s]." % (self.__name__, attr))
+        logger.step_normal("Element [%s]: GetAttribute [%s]." % (self.__name__, attr))
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
 
         attr_value = elements[self.index].get_attribute(attr)
-        logger.step_normal(u"Element [%s]: Attribute Value = [%s]." % (self.__name__, attr_value))
+        logger.step_normal("Element [%s]: Attribute Value = [%s]." % (self.__name__, attr_value))
 
         self.__clearup()
         return attr_value
 
     @CompatibleMethod
     def GetParentElement(self):
-        logger.step_normal("Element [%s]: GetParentElement()" % (self.__name__))
+        logger.step_normal("Element [%s]: GetParentElement()" % self.__name__)
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
 
         return elements[self.index].parent()
 
-
     @CompatibleMethod
     def GetText(self):
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
-        logger.step_normal(u"Element [%s]: Gets the text of the element, the content is %s." % (self.__name__, elements[self.index].text))
+        logger.step_normal("Element [%s]: Get text of the element = %s." % (self.__name__,
+                                                                                          elements[self.index].text))
         return elements[self.index].text
-
 
     @CompatibleMethod
     def FetchSubElementOfXPath(self, layer):
@@ -715,22 +594,15 @@ class WebElement:
 
 
     @CompatibleMethod
-    def Wait(self, seconds):
-        logger.step_normal("Element [%s]: Wait for [%s] seconds." % (self.__name__, seconds))
-
-        time.sleep(seconds)
-
-
-    @CompatibleMethod
-    def WaitForAttribute(self, name, value, method="equal"):
+    def WaitForAttribute(self, name, value, comparator="equal"):
         '''
 
         Example:
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', method='equal')
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', method='contain')
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', method='not contain')
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', method='in')
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', method='not equal')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', comparator='equal')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', comparator='contain')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', comparator='not contain')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', comparator='in')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', comparator='not equal')
 
         Description for "method":
             equal  => real value is 'hello'
@@ -892,17 +764,17 @@ class WebElement:
 
     @CompatibleMethod
     def IsEnabled(self):
-        logger.step_normal(u"Element [%s]: Is Enabled?" % (self.__name__))
+        logger.step_normal("Element [%s]: Is Enabled?" % (self.__name__))
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
 
         if elements[self.index].is_enabled():
-            logger.step_normal(u"Yes!")
+            logger.step_normal("Yes!")
             self.__clearup()
             return True
         else:
-            logger.step_normal(u"No!")
+            logger.step_normal("No!")
             self.__clearup()
             return False
 
@@ -940,7 +812,7 @@ class WebElement:
 
 
     @CompatibleMethod
-    def IsAttribute(self, name, value, method="contain"):
+    def IsAttribute(self, name, value, comparator="contain"):
         logger.step_normal("Element [%s]: IsAttribute [%s] <%s> [%s]." % (self.__name__, name, method, value))
 
         self.__wait()
@@ -1046,13 +918,13 @@ class WebElement:
 
     @CompatibleMethod
     def VerifyEnabled(self, trueOrfalse):
-        logger.step_normal(u"Element [%s]: Verify Enabled = [%s]" % (self.__name__, trueOrfalse))
+        logger.step_normal("Element [%s]: Verify Enabled = [%s]" % (self.__name__, trueOrfalse))
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
 
         is_disabled = elements[self.index].get_attribute("disabled")
-        logger.step_normal(u"Element [%s]: attribute 'is_disabled' = [%s]" % (self.__name__, is_disabled))
+        logger.step_normal("Element [%s]: attribute 'is_disabled' = [%s]" % (self.__name__, is_disabled))
 
         if is_disabled == "true":
             if trueOrfalse == False:
@@ -1098,13 +970,13 @@ class WebElement:
 
 
     @CompatibleMethod
-    def VerifyAttribute(self, name, value, method='equal'):
+    def VerifyAttribute(self, name, value, comparator='equal'):
         '''
         Example:
-            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', method='equal')
-            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', method='contain')
-            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', method='in')
-            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', method='not equal')
+            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', comparator='equal')
+            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', comparator='contain')
+            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', comparator='in')
+            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', comparator='not equal')
 
         Description for "method":
             equal  => real value is 'hello'

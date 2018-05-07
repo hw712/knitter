@@ -7,3 +7,5 @@ __pycache__
 .pydevproject
 
 .idea/
+
+*.egg-info/
