@@ -227,7 +227,7 @@ def html_source_version_info():
 def html_source_foot():
     return u"""
 <hr />
-<p style="text-align: center">@2014-2018 Powered by <a href="https://pypi.python.org/pypi/knitter">Knitter</a></p>
+<p style="text-align: center">@2014-2018 Powered by <a href="https://pypi.org/project/knitter">Knitter</a></p>
 <br />
 </body>
 </html>

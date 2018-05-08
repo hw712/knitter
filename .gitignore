@@ -11,3 +11,6 @@ __pycache__
 *.egg-info/
 
 venv/
+
+results/
+result/

@@ -10,9 +10,9 @@ Tutorial
 2. Preconditions
 -----------------------------------------------------------------------
 
-+ Python 2.7
++ Python 3.5+
 
-+ Depends on "selenium", "xlrd", "xlwt" packages, which will be installed while installing knitter.
++ Depends on "selenium", "xlrd", packages, which will be installed while installing knitter.
 
 + Drivers
 

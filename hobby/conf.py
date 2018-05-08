@@ -6,11 +6,15 @@ def windows():
     Browser.Chrome.Driver = "driver/chromedriver.exe"
     Browser.AvailableBrowsers.append(Browser.Chrome)
 
-    # If True, not open real chrome, just run chrome in memory
+    # FireFox
+    Browser.FireFox.Driver = "driver/geckodriver.exe"
+    Browser.AvailableBrowsers.append(Browser.FireFox)
+
+    # Only for Chrome. If True, will just run in memory.
     Browser.HeadlessMode = False
 
     # URL
     Browser.StartURL = "http://sleepycat.org/static/knitter/hobby.html"
 
-    # Result Path
-    General.Path.Result = "C:/Archive/results"
+    # Result
+    General.Path.Result = "results"
