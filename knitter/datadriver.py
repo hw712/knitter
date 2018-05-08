@@ -1,4 +1,3 @@
-
 from knitter import logger
 import xlrd
 
@@ -62,7 +61,7 @@ class ExcelSheet:
     def cell_by_colname(self, rowx, col_name):
         for colx in range(0, self.sheet.ncols):
             if self.data[0][colx] == col_name:
-                logger.step_normal("[%s][%s]=[%s]" % (colx, col_name, self.data[rowx][colx]))
+                logger.step_normal("Excel Column [%s]=[%s]" % (col_name, self.data[rowx][colx]))
                 return self.data[rowx][colx]
         
         return None
@@ -70,7 +69,7 @@ class ExcelSheet:
     def cell_by_rowname(self, row_name, colx):
         for rowx in range(0, self.sheet.nrows):
             if self.data[rowx][0] == row_name:
-                logger.step_normal("[%s][%s]=[%s]" % (row_name, colx, self.data[rowx][colx]))
+                logger.step_normal("Excel [row-name:%s, col:%s]=[%s]" % (row_name, colx, self.data[rowx][colx]))
                 return self.data[rowx][colx]
 
         return None
@@ -78,7 +77,7 @@ class ExcelSheet:
     def cell_by_row_and_col_name(self, row_name, col_name):
         for rowx in range(0, self.nrows()):
             if self.cellxy(rowx, 0) == row_name:
-                logger.step_normal("row_name=" + row_name + ", col_name=" + col_name + ", value=" + self.cell(rowx, col_name))
+                logger.step_normal("Excel row_name=" + row_name + ", col_name=" + col_name + ", value=" + self.cell(rowx, col_name))
                 return self.cell(rowx, col_name)
 
         return None

@@ -19,10 +19,10 @@ setup(
                      'maintainability and extendability.',
 
     # https://pypi.org/classifiers/
-    classifiers=['Topic :: Software Development :: Testing',
+    classifiers=['License :: OSI Approved :: BSD License',
+                 'Topic :: Software Development :: Testing',
                  'Topic :: Software Development :: Quality Assurance',
-                 'Topic :: Software Development :: Libraries :: Application Frameworks',
-                 'License :: OSI Approved :: BSD License'],
+                 'Topic :: Software Development :: Libraries :: Application Frameworks'],
 
     platforms=['linux', 'windows'],
 
