@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='knitter',
-    version='1.0.1',
+    version='1.0.2',
     
     author='Henry Wang',
     author_email='skymatrix@126.com',

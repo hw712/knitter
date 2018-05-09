@@ -419,8 +419,8 @@ class WebElement:
         return elements[self.index].text
 
     @CompatibleMethod
-    def IsAttribute(self, attribute, value, action="contain"):
-        logger.step_normal("Element [%s]: IsAttribute [%s] <%s> [%s]?" % (self.__name__, attribute, action, value))
+    def IsAttribute(self, attribute, value, assertion="contain"):
+        logger.step_normal("Element [%s]: IsAttribute [%s] <%s> [%s]?" % (self.__name__, attribute, assertion, value))
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
@@ -428,15 +428,15 @@ class WebElement:
 
         result = False
 
-        if action.lower() == 'equal' and value == real_value:
+        if assertion.lower() == 'equal' and value == real_value:
             result = True
-        elif action.lower() == 'not equal' and value != real_value:
+        elif assertion.lower() == 'not equal' and value != real_value:
             result = True
-        elif action.lower() == 'contain' and value in real_value:
+        elif assertion.lower() == 'contain' and value in real_value:
             result = True
-        elif action.lower() == 'not contain' and value not in real_value:
+        elif assertion.lower() == 'not contain' and value not in real_value:
             result = True
-        elif action.lower() == 'in' and real_value in value:
+        elif assertion.lower() == 'in' and real_value in value:
             result = True
         else:
             logger.step_fail("code error.")
@@ -745,52 +745,52 @@ class WebElement:
         elements[self.index].send_keys(value)
 
     @CompatibleMethod
-    def VerifyAttribute(self, attribute, value, action='equal'):
+    def VerifyAttribute(self, attribute, value, assertion='equal'):
         """
         Example:
-            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', action='equal')
-            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', action='contain')
-            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', action='in')
-            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', action='not equal')
+            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', assertion='equal')
+            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', assertion='contain')
+            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', assertion='in')
+            NewClaim.Dates.ReminderDate.VerifyAttribute('ng-model', 'hello', assertion='not equal')
 
-        :param action:
+        :param assertion:
             in          => Real value [in] 'hello'. For example: real_value is 'he'
             equal       => Real value [equal] 'hello'. For example: real_value is 'hello'
             contain     => Real value [contain] 'hello'. For example: real_value is 'hello world'.
             not equal   => Real value [not equal] 'hello'. For example: real_value is 'hallow'
             not contain => Real value [not contain] 'hello'. For example: real_value is 'hi world'.
         """
-        logger.step_normal("Element [%s]: VerifyAttribute [%s] <%s> [%s]." % (self.__name__, attribute, action, value))
+        logger.step_normal("Element [%s]: VerifyAttribute [%s] <%s> [%s]." % (self.__name__, attribute, assertion, value))
 
         self.__wait()
         elements = Browser.RunningBrowser.find_elements(self.by, self.value)
         real_value = elements[self.index].get_attribute(attribute)
 
-        if action.lower() == 'equal':
+        if assertion.lower() == 'equal':
             if value == real_value:
                 logger.step_pass("real value=[%s]" % real_value)
             else:
                 logger.step_fail("real value=[%s]" % real_value)
 
-        elif action.lower() == 'not equal':
+        elif assertion.lower() == 'not equal':
             if not value == real_value:
                 logger.step_pass("real value=[%s]" % real_value)
             else:
                 logger.step_fail("real value=[%s]" % real_value)
 
-        elif action.lower() == 'contain':
+        elif assertion.lower() == 'contain':
             if value in real_value:
                 logger.step_pass("real value=[%s]" % real_value)
             else:
                 logger.step_fail("real value=[%s]" % real_value)
 
-        elif action.lower() == 'not contain':
+        elif assertion.lower() == 'not contain':
             if not value in real_value:
                 logger.step_pass("real value=[%s]" % real_value)
             else:
                 logger.step_fail("real value=[%s]" % real_value)
 
-        elif action.lower() == 'in':
+        elif assertion.lower() == 'in':
             if real_value in value:
                 logger.step_pass("real value=[%s]" % real_value)
             else:
@@ -858,7 +858,7 @@ class WebElement:
 
     @CompatibleMethod
     def VerifyInnerHTMLContains(self, content):
-        self.VerifyAttribute("innerHTML", content, action="contain")
+        self.VerifyAttribute("innerHTML", content, assertion="contain")
 
     @CompatibleMethod
     def VerifyVisible(self, trueORfalse):
@@ -887,23 +887,23 @@ class WebElement:
         self.__wait_for_appearing()
 
     @CompatibleMethod
-    def WaitForAttribute(self, attribute, value, action="equal"):
+    def WaitForAttribute(self, attribute, value, assertion="equal"):
         """
         Example:
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', action='equal')
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', action='contain')
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', action='not contain')
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', action='in')
-            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', action='not equal')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', assertion='equal')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', assertion='contain')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', assertion='not contain')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', assertion='in')
+            NewClaim.Dates.ReminderDate.WaitForAttribute('ng-model', 'hello', assertion='not equal')
 
-        :param action:
+        :param assertion:
             in          => Real value [in] 'hello'. For example: real_value is 'he'
             equal       => Real value [equal] 'hello'. For example: real_value is 'hello'
             contain     => Real value [contain] 'hello'. For example: real_value is 'hello world'.
             not equal   => Real value [not equal] 'hello'. For example: real_value is 'hallow'
             not contain => Real value [not contain] 'hello'. For example: real_value is 'hi world'.
         """
-        logger.step_normal("Element [%s]: WaitForAttribute [%s] <%s> [%s]." % (self.__name__, attribute, action, value))
+        logger.step_normal("Element [%s]: WaitForAttribute [%s] <%s> [%s]." % (self.__name__, attribute, assertion, value))
 
         i = 0
         while True:
@@ -912,35 +912,35 @@ class WebElement:
 
             real_value = elements[self.index].get_attribute(attribute)
 
-            if action.lower() == 'equal':
+            if assertion.lower() == 'equal':
                 if value.lower() == real_value.lower():
                     logger.step_normal("Yes! real value=[%s]" % real_value)
                     break
                 else:
                     logger.step_normal("No! real value=[%s]" % real_value)
 
-            elif action.lower() == 'contain':
+            elif assertion.lower() == 'contain':
                 if value.lower() in real_value.lower():
                     logger.step_normal("Yes! real value=[%s]" % real_value[:150])
                     break
                 else:
                     logger.step_normal("No! real value=[%s]" % real_value[:150])
 
-            elif action.lower() == 'not contain':
+            elif assertion.lower() == 'not contain':
                 if value.lower() in real_value.lower():
                     logger.step_normal("Yes! real value=[%s]" % real_value[:150])
                 else:
                     logger.step_normal("No! real value=[%s]" % real_value[:150])
                     break
 
-            elif action.lower() == 'in':
+            elif assertion.lower() == 'in':
                 if real_value.lower() in value.lower():
                     logger.step_normal("Yes! real value=[%s]" % real_value[:150])
                     break
                 else:
                     logger.step_normal("No! real value=[%s]" % real_value[:150])
 
-            elif action.lower() == 'not equal':
+            elif assertion.lower() == 'not equal':
                 if value.lower() == real_value.lower():
                     logger.step_normal("No! real value=[%s]" % real_value)
                 else:

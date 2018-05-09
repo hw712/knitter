@@ -1,16 +1,12 @@
 __pycache__
 *.pyc
 
-
 .project
 .settings
 .pydevproject
-
 .idea/
 
 *.egg-info/
 
 venv/
 
-results/
-result/
