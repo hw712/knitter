@@ -13,9 +13,9 @@ setup(
     
     url='https://github.com/hw712/Knitter',
 
-    description='Python Web Automation Test Framework with Selenium WebDriver',
-    long_description='A web testing framework based on Selenium WebDriver. '
-                     'The target is to develop the web testing project with good maintainability and extendability.',
+    description='A Web Automation Test Framework Based On Selenium WebDriver',
+    long_description="Knitter['nitə] is a web automation test framework, with which you can develop "
+                     "the web ui automation with good maintainability and extendability.",
 
     # https://pypi.org/classifiers/
     classifiers=['License :: OSI Approved :: BSD License',
