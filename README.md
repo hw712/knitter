@@ -1,15 +1,15 @@
 Knitter ['nitə]
 --------------------------------------------
 
- A Web Automation Test Framework Based on Selenium WebDriver. (Python 3.5+, Selenium) 
+ A Web Automation Test Framework Based on Selenium WebDriver. (Python 3, Selenium) 
 
 
 Documents
 --------------------------------------------
 
-- http://sleepycat.org/blog/test/knitter.html
+- http://sleepycat.org/blog/30-software-testing/10-knitter.html
 
-- http://sleepycat.org/blog/test/knitter-tutorial.html
+- http://sleepycat.org/blog/30-software-testing/17-knitter-tutorial.html
 
 
 Demo
