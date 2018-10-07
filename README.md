@@ -7,9 +7,9 @@ Knitter ['nitə]
 Documents
 --------------------------------------------
 
-- http://sleepycat.org/blog/30-software-testing/10-knitter.html
+- http://sleepycat.org/blog/77-software-testing/10-knitter.html
 
-- http://sleepycat.org/blog/30-software-testing/17-knitter-tutorial.html
+- http://sleepycat.org/blog/77-software-testing/17-knitter-tutorial.html
 
 
 Demo
