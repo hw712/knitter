@@ -7,15 +7,15 @@ Knitter ['nitə]
 Documents
 --------------------------------------------
 
-- http://sleepycat.org/blog/77-software-testing/10-knitter.html
+- http://sleepycat.org/blog/QA/knitter.html
 
-- http://sleepycat.org/blog/77-software-testing/17-knitter-tutorial.html
+- http://sleepycat.org/blog/QA/knitter-tutorial.html
 
 
 Demo
 --------------------------------------------
 
-- https://github.com/hw712/hobby
+- https://github.com/hw712/knitter-example
 
 
 License

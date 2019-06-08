@@ -11,7 +11,7 @@ setup(
     maintainer='Henry Wang',
     maintainer_email='skymatrix@126.com',
     
-    url='https://github.com/hw712/Knitter',
+    url='https://github.com/hw712/knitter',
 
     description='A Web Automation Test Framework Based On Selenium WebDriver',
     long_description="Knitter['nitə] is a web automation test framework, with which you can develop "
