@@ -4,12 +4,12 @@ from setuptools import setup
 
 setup(
     name='knitter',
-    version='1.0.2',
+    version='1.0.3',
     
     author='Henry Wang',
-    author_email='skymatrix@126.com',
+    author_email='outsidematrix@126.com',
     maintainer='Henry Wang',
-    maintainer_email='skymatrix@126.com',
+    maintainer_email='outsidematrix@126.com',
     
     url='https://github.com/hw712/knitter',
 

@@ -7,9 +7,9 @@ Knitter ['nitə]
 Documents
 --------------------------------------------
 
-- http://sleepycat.org/blog/QA/Knitter.html
+- http://www.outsidematrix.com/note/QA/Knitter.html
 
-- http://sleepycat.org/blog/QA/Knitter-Tutorial.html
+- http://www.outsidematrix.com/note/QA/Knitter-Tutorial.html
 
 
 Demo
