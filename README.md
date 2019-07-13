@@ -12,7 +12,7 @@ Documents
 - https://outsidematrix.com/note/QA/Knitter-Tutorial.html
 
 
-Demo
+Example
 --------------------------------------------
 
 - https://github.com/hw712/knitter-example
