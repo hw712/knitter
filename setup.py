@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='knitter',
-    version='1.0.3',
+    version='1.0.0',
     
     author='Henry Wang',
     author_email='outsidematrix@126.com',
@@ -18,7 +18,7 @@ setup(
                      "the web ui automation with good maintainability and extendability.",
 
     # https://pypi.org/classifiers/
-    classifiers=['License :: OSI Approved :: BSD License',
+    classifiers=['License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
                  'Topic :: Software Development :: Testing',
                  'Topic :: Software Development :: Quality Assurance',
                  'Topic :: Software Development :: Libraries :: Application Frameworks'],
