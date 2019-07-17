@@ -20,7 +20,7 @@ Tutorial
 
     - [IE Driver](http://selenium-release.storage.googleapis.com/index.html)
 
-    - You can also find both driver files [here](https://github.com/hww712/Knitter/tree/master/examples/DemoProject/drivers).
+    - You can also find both driver files [here](https://github.com/hw712/knitter-example/tree/master/driver).
 
 
 
@@ -29,11 +29,11 @@ Tutorial
 
 + Demo project source code:
 
-    - [https://github.com/hww712/Knitter/tree/master/example](https://github.com/hww712/Knitter/tree/master/example)
+    - [https://github.com/hw712/knitter-example](https://github.com/hw712/knitter-example)
 
 + Demo project test page:
 
-    - [http://sleepycat.org/static/knitter/KnitterDemo.html](http://sleepycat.org/static/knitter/KnitterDemo.html)
+    - [https://outsidematrix.com/knitter/hobby.html](https://outsidematrix.com/knitter/hobby.html)
 
 
 #### Step 1. Create a source code package "demoprj".
@@ -136,7 +136,7 @@ Tutorial
     
     
     class MSWindows:
-        BASE_URL = 'http://sleepycat.org/static/knitter/KnitterDemo.html'
+        BASE_URL = 'https://outsidematrix.com/knitter/hobby.html'
         TESTING_BROWSERS = 'Firefox'
 
 
