@@ -21,7 +21,7 @@ Example
 License
 --------------------------------------------
 
-- BSD License
+- GPL License
 
 
 
